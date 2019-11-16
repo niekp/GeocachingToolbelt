@@ -45,27 +45,47 @@ namespace WordMask.Controllers
             return output;
         }
 
-        [HttpPost]
-        public IActionResult Index(string mask, string notcontain = "", string contains = "", string knownletters = "")
+        private string GetReplacedWord(string mask, Dictionary<char, char> associations)
         {
-            notcontain ??= "";
+            foreach (var letter in mask)
+            {
+                if (associations.ContainsKey(letter))
+                {
+                    mask = mask.Replace(letter, associations[letter]);
+                }
+                else
+                {
+                    mask = mask.Replace(letter, '?');
+                }
+            }
+
+            return mask;
+        }
+
+        [HttpPost]
+        public IActionResult Index(string mask, string notContains = "", string contains = "", string knownLetters = "")
+        {
+            notContains ??= "";
             contains ??= "";
-            knownletters ??= "";
+            knownLetters ??= "";
+            var associations = GetAssociations(knownLetters);
 
             ViewBag.Mask = mask;
-            ViewBag.NotContain = notcontain;
+            ViewBag.NotContains = notContains;
             ViewBag.Contains = contains;
-            ViewBag.KnownLetters = knownletters;
-            ViewBag.Automode = Request.Form["notcontain-automode"] == "on";
+            ViewBag.KnownLetters = knownLetters;
+            ViewBag.Automode = Request.Form["notcontains-automode"] == "on";
 
             var ruleset = new Ruleset(
                 mask,
-                notcontain.Split(",").Select(l => l.Trim().ToUpper()).ToList(),
+                notContains.Split(",").Select(l => l.Trim().ToUpper()).ToList(),
                 contains.Split(",").Select(l => l.Trim().ToUpper()).ToList(),
-                GetAssociations(knownletters)
+                associations
             );
             
             ViewBag.Matches = _dictionary.FindMatches(ruleset);
+            ViewBag.ReplacedWord = GetReplacedWord(mask, associations);
+
             return View();
         }
 

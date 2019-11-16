@@ -9,10 +9,10 @@
         <div class="row">
             <div class="form-group col-md-6">
                 <label for="mask">Does not contain</label>
-                <input type="text" id ="notcontain" name="notcontain" data-id="notcontain" value="@ViewBag.NotContain" class="form-control" aria-describedby="notcontainHelp" placeholder="l, e, t, r, s" />
-                <small id="notcontainHelp" class="form-text text-muted">Filter out words containing these letters</small>
-                <input type="checkbox" data-id="notcontain-automode" name="notcontain-automode" id="notcontain-automode" class="form-check-input" @if (ViewBag.Automode == true) { @Html.Raw("checked='checked'"); } />
-                <label for="notcontain-automode">Fill automatically</label>
+                <input type="text" id ="notcontains" name="notcontains" data-id="notcontains" value="@ViewBag.NotContains" class="form-control" aria-describedby="notcontainsHelp" placeholder="l, e, t, r, s" />
+                <small id="notcontainsHelp" class="form-text text-muted">Filter out words containing these letters</small>
+                <input type="checkbox" data-id="notcontains-automode" name="notcontains-automode" id="notcontains-automode" class="form-check-input" @if (ViewBag.Automode == true) { @Html.Raw("checked='checked'"); } />
+                <label for="notcontains-automode">Fill automatically</label>
             </div>
         
             <div class="form-group col-md-6">
@@ -35,6 +35,7 @@
         <div>&nbsp;</div>
         <div>@ViewBag.Matches.Count matches</div>
         <ul class="list-group" id="matches">
+            <li class="list-group-item disabled">@ViewBag.ReplacedWord</li>
             @foreach (var word in ViewBag.Matches)
             {
                 <li class="list-group-item matched-word" data-trigger="updateAssociations">@word</li> 

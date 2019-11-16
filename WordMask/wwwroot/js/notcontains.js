@@ -4,8 +4,8 @@
     });
 
     var updateNotContains = function () {
-        console.log($("[data-id='notcontain-automode']").prop("checked"))
-        if (!$("[data-id='notcontain-automode']").prop("checked")) {
+        console.log($("[data-id='notcontains-automode']").prop("checked"))
+        if (!$("[data-id='notcontains-automode']").prop("checked")) {
             return;
         }
 
@@ -27,7 +27,7 @@
 
         console.log('not', notcontains)
 
-        $("[data-id='notcontain']").val(notcontains);
+        $("[data-id='notcontains']").val(notcontains);
     };
 
 })(jQuery);

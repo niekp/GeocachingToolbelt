@@ -17,13 +17,13 @@ namespace WordMask.Models
         /// Create a ruleset to match a word against
         /// </summary>
         /// <param name="mask">The masked word</param>
-        /// <param name="notContain">List of letters the word may not contain</param>
+        /// <param name="notContains">List of letters the word may not contain</param>
         /// <param name="contains">List of letters the word must contain</param>
         /// <param name="knownLetters">List of known matches (a=b, c=d, ..)</param>
-        public Ruleset(string mask, List<string> notContain = null, List<string> contains = null, Dictionary<char, char> knownLetters = null)
+        public Ruleset(string mask, List<string> notContains = null, List<string> contains = null, Dictionary<char, char> knownLetters = null)
         {
             _mask = mask.ToUpper();
-            _notContain = notContain ?? _notContain;
+            _notContain = notContains ?? _notContain;
             _contains = contains ?? _contains;
             _knownLetters = knownLetters ?? _knownLetters;
             _length = mask.Length;
