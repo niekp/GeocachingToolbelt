@@ -1,0 +1,41 @@
+﻿<div class="text-center">
+    <form method="post">
+        <div class="form-group">
+            <label for="mask">Mask</label>
+            <input type="text" id ="mask" name="mask" value="@ViewBag.Mask" class="form-control" aria-describedby="maskHelp" placeholder="ABCDEDHB" required />
+            <small id="maskHelp" class="form-text text-muted">The masked word, like ABCDEDHB is a mask for geocache (B=E, D=C)</small>
+        </div>
+        
+        <div class="form-group">
+            <label for="mask">Does not contain</label>
+            <input type="text" id ="notcontain" name="notcontain" value="@ViewBag.NotContain" class="form-control" aria-describedby="notcontainHelp" placeholder="l, e, t, r, s" />
+            <small id="notcontainHelp" class="form-text text-muted">Filter out words containing these letters</small>
+        </div>
+        
+        <div class="form-group">
+            <label for="mask">Contains</label>
+            <input type="text" id ="contains" name="contains" value="@ViewBag.Contains" class="form-control" aria-describedby="containHelp" placeholder="l, e, t, r, s" />
+            <small id="containHelp" class="form-text text-muted">Filter out words <strong>not</strong> containing these letters</small>
+        </div>
+
+        <div class="form-group">
+            <label for="mask">Known letters</label>
+            <input type="text" id ="knownletters" name="knownletters" value="@ViewBag.KnownLetters" class="form-control" aria-describedby="knownlettersHelp" placeholder="B=E, D=C" />
+            <small id="knownlettersHelp" class="form-text text-muted">Which matches are already known</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    @if (ViewBag.Matches is List<string>)
+    {
+        <div>&nbsp;</div>
+        <div>@ViewBag.Matches.Count matches</div>
+        <ul class="list-group">
+            @foreach (var word in ViewBag.Matches)
+            {
+                <li class="list-group-item">@word</li> 
+            }
+        </ul>
+    }
+
+</div>
