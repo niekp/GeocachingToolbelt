@@ -1,6 +1,6 @@
 ﻿(function ($) {
     $(document).ready(function () {
-        $("[data-id='mask']").change(updateNotContains);
+        $("[data-id='mask']").on('change, keyup', updateNotContains);
     });
 
     var updateNotContains = function () {
