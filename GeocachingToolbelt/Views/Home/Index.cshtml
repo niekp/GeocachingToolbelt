@@ -1,14 +1,55 @@
 ﻿<h1>Geocaching toolbelt</h1>
+<div class="row mt-3 mb-3">
+    <div class="card mr-3" style="width: 16rem;">
+        <img src="~/images/woordenboek.jpg" class="card-img-top" alt="woordenboek">
+        <div class="card-body">
+            <h5 class="card-title">Woordzoeker</h5>
+            <p class="card-text">
+                Filter het woordenboek op basis van een masker.
+                Kan gebruikt worden om een substitutie cypher op te lossen.
+            </p>
 
-<div class="card" style="width: 18rem;">
-    <img src="~/images/woordenboek.jpg" class="card-img-top" alt="woordenboek">
-    <div class="card-body">
-        <h5 class="card-title">Woordzoeker</h5>
-        <p class="card-text">
-            Filter het woordenboek op basis van een masker.
-            Kan gebruikt worden om een substitutie cypher op te lossen.
-        </p>
-
-        @Html.ActionLink("Woordzoeker", "Index", "WordMask", null, new {@class = "btn btn-primary"})
+            @Html.ActionLink("Woordzoeker", "Index", "WordMask", null, new {@class = "btn btn-light stretched-link"})
+        </div>
     </div>
+</div>
+
+<h1>Externe tools</h1>
+<div class="row mt-3">
+    <div class="card mr-3" style="width: 16rem;">
+        <img src="~/images/logoGeocachingtoolbox.png" class="card-img-top" alt="geocaching toolbox">
+        <div class="card-body">
+            <h5 class="card-title">Geocaching toolbox</h5>
+            <p class="card-text">
+                De originele geocaching toolbox.
+            </p>
+
+            <a href="https://www.geocachingtoolbox.com/" class="btn btn-light stretched-link" target="_blank" rel="noopener noreferrer">Toolbox</a>
+        </div>
+    </div>
+
+    <div class="card mr-3" style="width: 16rem;">
+        <img src="~/images/gpscoordinaten.png" class="card-img-top" alt="gpscoordinaten">
+        <div class="card-body">
+            <h5 class="card-title">GPScoordinaten.nl</h5>
+            <p class="card-text">
+                Converteer coordinaten tussen RD, decimalen, UTM, graden, graden minuten en graden minuten seconden
+            </p>
+
+            <a href="https://www.gpscoordinaten.nl/converteer-rd-coordinaten.php" class="btn btn-light stretched-link" target="_blank" rel="noopener noreferrer">Converteer</a>
+        </div>
+    </div>
+
+    <div class="card mr-3" style="width: 16rem;">
+        <img src="~/images/projectgc.jpg" class="card-img-top" alt="project gc">
+        <div class="card-body">
+            <h5 class="card-title">Project GC</h5>
+            <p class="card-text">
+                Project GC bevat een hoop statistieken en tools.
+            </p>
+
+            <a href="https://project-gc.com/" class="btn btn-light stretched-link" target="_blank" rel="noopener noreferrer">Feitjes</a>
+        </div>
+    </div>
+
 </div>
