@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WordMask.Models
+namespace GeocachingToolbelt.Models
 {
     public class Ruleset
     {
@@ -80,7 +80,7 @@ namespace WordMask.Models
             {
                 return false;
             }
-            
+
             // Check if the known letter matches match up
             foreach (var letter in _knownLetters)
             {

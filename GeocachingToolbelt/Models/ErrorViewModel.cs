@@ -1,6 +1,6 @@
 using System;
 
-namespace WordMask.Models
+namespace GeocachingToolbelt.Models
 {
     public class ErrorViewModel
     {

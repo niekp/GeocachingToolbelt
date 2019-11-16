@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace WordMask.Models
+namespace GeocachingToolbelt.Models
 {
     public class TheDictionary
     {
