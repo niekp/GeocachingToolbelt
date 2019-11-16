@@ -1,0 +1,66 @@
+﻿<div class="text-centerX">
+    <h1>Woordzoeker</h1>
+    <form method="post" action="#matches">
+        <div class="form-group">
+            <label for="mask">Masker</label>
+            <input type="text" id="mask" data-id="mask" name="masks" value="@ViewBag.Masks" class="form-control" aria-describedby="maskHelp" placeholder="ABCDEDHB" required />
+            <small id="maskHelp" class="form-text text-muted">Het gemaskerde woord, bijv. ABCDEDHB is een masker voor geocache (B=E, D=C)<br />Het is mogelijk meerdere woorden tegelijk te zoeken (bijv. ABCDEDHB JCDEKLB = geocache locatie)</small>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="notcontains">Bevat geen</label>
+                <input type="text" id ="notcontains" name="notcontains" data-id="notcontains" value="@ViewBag.NotContains" class="form-control" aria-describedby="notcontainsHelp" placeholder="l, e, t, r, s" />
+                <small id="notcontainsHelp" class="form-text text-muted">Filter woorden met deze letters</small>
+                <div class="form-check">
+                  <input type="checkbox" data-id="notcontains-automode" name="notcontains-automode" id="notcontains-automode" class="form-check-input" @if (ViewBag.Automode == true) { @Html.Raw("checked='checked'"); } />
+                  <label class="form-check-label" for="notcontains-automode">
+                    Vul automatisch
+                  </label>
+                </div>
+            </div>
+        
+            <div class="form-group col-md-6">
+                <label for="mask">Bevat</label>
+                <input type="text" id ="contains" name="contains" value="@ViewBag.Contains" class="form-control" aria-describedby="containHelp" placeholder="l, e, t, r, s" />
+                <small id="containHelp" class="form-text text-muted">Filter woorden die deze letters niet bevatten</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="mask">Bekende letters</label>
+            <input type="text" id="knownletters" data-id="associations" name="knownletters" value="@ViewBag.KnownLetters" class="form-control" aria-describedby="knownlettersHelp" placeholder="B=E, D=C" />
+            <small id="knownlettersHelp" class="form-text text-muted">Welke letter associaties zijn al bekend</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Zoek</button>
+    </form>
+
+    @if (ViewBag.Matches is Dictionary<string, List<string>>)
+    {
+        <div>&nbsp;</div>
+
+        <div class="alert alert-info" role="alert">
+            Klik op een woord om automatisch de letter associaties over te nemen.<br />
+        </div>
+
+        foreach (var query in ViewBag.Matches)
+        {
+            <h3 class="query-title">@query.Key</h3>
+            <div>@query.Value.Count resultaten</div>
+            <ul class="list-group" id="matches" data-mask="@query.Key">
+                <li class="list-group-item disabled">@ViewBag.ReplacedWord[query.Key]</li>
+                @foreach (var word in query.Value)
+                {
+                    <li class="list-group-item matched-word" data-trigger="updateAssociations">@word</li> 
+                }
+            </ul>
+        }
+    }
+
+</div>
+
+@section Scripts{
+    <script src="~/js/associations.js"></script>
+    <script src="~/js/notcontains.js"></script>
+}
