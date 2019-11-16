@@ -2,13 +2,13 @@
     <form method="post" action="#matches">
         <div class="form-group">
             <label for="mask">Mask</label>
-            <input type="text" id="mask" data-id="mask" name="mask" value="@ViewBag.Mask" class="form-control" aria-describedby="maskHelp" placeholder="ABCDEDHB" required />
-            <small id="maskHelp" class="form-text text-muted">The masked word, like ABCDEDHB is a mask for geocache (B=E, D=C)</small>
+            <input type="text" id="mask" data-id="mask" name="masks" value="@ViewBag.Masks" class="form-control" aria-describedby="maskHelp" placeholder="ABCDEDHB" required />
+            <small id="maskHelp" class="form-text text-muted">The masked word, like ABCDEDHB is a mask for geocache (B=E, D=C)<br />It's possible to search for multiple words at the same time (like ABCDEDHB JCDEKLB = geocache locatie)</small>
         </div>
 
         <div class="row">
             <div class="form-group col-md-6">
-                <label for="mask">Does not contain</label>
+                <label for="notcontains">Does not contain</label>
                 <input type="text" id ="notcontains" name="notcontains" data-id="notcontains" value="@ViewBag.NotContains" class="form-control" aria-describedby="notcontainsHelp" placeholder="l, e, t, r, s" />
                 <small id="notcontainsHelp" class="form-text text-muted">Filter out words containing these letters</small>
                 <input type="checkbox" data-id="notcontains-automode" name="notcontains-automode" id="notcontains-automode" class="form-check-input" @if (ViewBag.Automode == true) { @Html.Raw("checked='checked'"); } />
@@ -30,17 +30,20 @@
 
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
-    @if (ViewBag.Matches is List<string>)
+    @if (ViewBag.Matches is Dictionary<string, List<string>>)
     {
-        <div>&nbsp;</div>
-        <div>@ViewBag.Matches.Count matches</div>
-        <ul class="list-group" id="matches">
-            <li class="list-group-item disabled">@ViewBag.ReplacedWord</li>
-            @foreach (var word in ViewBag.Matches)
-            {
-                <li class="list-group-item matched-word" data-trigger="updateAssociations">@word</li> 
-            }
-        </ul>
+        foreach (var query in ViewBag.Matches)
+        {
+            <h3 class="query-title">@query.Key</h3>
+            <div>@query.Value.Count matches</div>
+            <ul class="list-group" id="matches" data-mask="@query.Key">
+                <li class="list-group-item disabled">@ViewBag.ReplacedWord[query.Key]</li>
+                @foreach (var word in query.Value)
+                {
+                    <li class="list-group-item matched-word" data-trigger="updateAssociations">@word</li> 
+                }
+            </ul>
+        }
     }
 
 </div>

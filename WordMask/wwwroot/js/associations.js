@@ -4,7 +4,7 @@
     });
 
     var updateAssociations = function (event) {
-        let mask = $("[data-id='mask']").val();
+        let mask = $(event.currentTarget).closest("[data-mask]").data("mask");
         let word = event.currentTarget.innerHTML;
 
         

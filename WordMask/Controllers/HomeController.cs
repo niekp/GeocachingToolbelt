@@ -64,28 +64,33 @@ namespace WordMask.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(string mask, string notContains = "", string contains = "", string knownLetters = "")
+        public IActionResult Index(string masks, string notContains = "", string contains = "", string knownLetters = "")
         {
             notContains ??= "";
             contains ??= "";
             knownLetters ??= "";
             var associations = GetAssociations(knownLetters);
 
-            ViewBag.Mask = mask;
+            ViewBag.Masks = masks;
             ViewBag.NotContains = notContains;
             ViewBag.Contains = contains;
             ViewBag.KnownLetters = knownLetters;
             ViewBag.Automode = Request.Form["notcontains-automode"] == "on";
 
-            var ruleset = new Ruleset(
-                mask,
-                notContains.Split(",").Select(l => l.Trim().ToUpper()).ToList(),
-                contains.Split(",").Select(l => l.Trim().ToUpper()).ToList(),
-                associations
-            );
+            ViewBag.Matches = new Dictionary<string, List<string>>();
+            ViewBag.ReplacedWord = new Dictionary<string, string>();
+            foreach (var mask in masks.Split(" "))
+            {
+                var ruleset = new Ruleset(
+                    mask,
+                    notContains.Split(",").Select(l => l.Trim().ToUpper()).ToList(),
+                    contains.Split(",").Select(l => l.Trim().ToUpper()).ToList(),
+                    associations
+                );
             
-            ViewBag.Matches = _dictionary.FindMatches(ruleset);
-            ViewBag.ReplacedWord = GetReplacedWord(mask, associations);
+                ViewBag.Matches[mask] = _dictionary.FindMatches(ruleset);
+                ViewBag.ReplacedWord[mask] = GetReplacedWord(mask, associations);
+            }
 
             return View();
         }
