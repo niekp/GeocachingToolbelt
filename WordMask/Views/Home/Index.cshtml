@@ -10,9 +10,9 @@
             <div class="form-group col-md-6">
                 <label for="mask">Does not contain</label>
                 <input type="text" id ="notcontain" name="notcontain" data-id="notcontain" value="@ViewBag.NotContain" class="form-control" aria-describedby="notcontainHelp" placeholder="l, e, t, r, s" />
+                <small id="notcontainHelp" class="form-text text-muted">Filter out words containing these letters</small>
                 <input type="checkbox" data-id="notcontain-automode" name="notcontain-automode" id="notcontain-automode" class="form-check-input" @if (ViewBag.Automode == true) { @Html.Raw("checked='checked'"); } />
                 <label for="notcontain-automode">Fill automatically</label>
-                <small id="notcontainHelp" class="form-text text-muted">Filter out words containing these letters</small>
             </div>
         
             <div class="form-group col-md-6">
