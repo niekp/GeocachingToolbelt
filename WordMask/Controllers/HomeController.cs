@@ -25,15 +25,20 @@ namespace WordMask.Controllers
             return View();
         }
 
-        private Dictionary<char, char> GetLetterMatches(string input)
+        private Dictionary<char, char> GetAssociations(string input)
         {
             Dictionary<char, char> output = new Dictionary<char, char>();
             foreach (var l in input.Split(",").Select(l => l.Trim().ToUpper()).ToList())
             {
-                var x = l.Split("=");
-                if (x.Length == 2)
+                var association = l.Split("=");
+                if (association.Length == 2)
                 {
-                    output.Add(char.Parse(x[0].Substring(0, 1)), char.Parse(x[1].Substring(0, 1)));
+                    var a = char.Parse(association[0].Substring(0, 1));
+                    var b = char.Parse(association[1].Substring(0, 1));
+                    if (!output.ContainsKey(a))
+                    {
+                        output.Add(a, b);
+                    }
                 }
             }
 
@@ -56,7 +61,7 @@ namespace WordMask.Controllers
                 mask,
                 notcontain.Split(",").Select(l => l.Trim().ToUpper()).ToList(),
                 contains.Split(",").Select(l => l.Trim().ToUpper()).ToList(),
-                GetLetterMatches(knownletters)
+                GetAssociations(knownletters)
             );
             
             ViewBag.Matches = _dictionary.FindMatches(ruleset);
