@@ -1,21 +1,25 @@
 ﻿<div class="text-center">
-    <form method="post">
+    <form method="post" action="#matches">
         <div class="form-group">
             <label for="mask">Mask</label>
             <input type="text" id="mask" data-id="mask" name="mask" value="@ViewBag.Mask" class="form-control" aria-describedby="maskHelp" placeholder="ABCDEDHB" required />
             <small id="maskHelp" class="form-text text-muted">The masked word, like ABCDEDHB is a mask for geocache (B=E, D=C)</small>
         </div>
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="mask">Does not contain</label>
+                <input type="text" id ="notcontain" name="notcontain" data-id="notcontain" value="@ViewBag.NotContain" class="form-control" aria-describedby="notcontainHelp" placeholder="l, e, t, r, s" />
+                <input type="checkbox" data-id="notcontain-automode" name="notcontain-automode" id="notcontain-automode" class="form-check-input" @if (ViewBag.Automode == true) { @Html.Raw("checked='checked'"); } />
+                <label for="notcontain-automode">Fill automatically</label>
+                <small id="notcontainHelp" class="form-text text-muted">Filter out words containing these letters</small>
+            </div>
         
-        <div class="form-group">
-            <label for="mask">Does not contain</label>
-            <input type="text" id ="notcontain" name="notcontain" value="@ViewBag.NotContain" class="form-control" aria-describedby="notcontainHelp" placeholder="l, e, t, r, s" />
-            <small id="notcontainHelp" class="form-text text-muted">Filter out words containing these letters</small>
-        </div>
-        
-        <div class="form-group">
-            <label for="mask">Contains</label>
-            <input type="text" id ="contains" name="contains" value="@ViewBag.Contains" class="form-control" aria-describedby="containHelp" placeholder="l, e, t, r, s" />
-            <small id="containHelp" class="form-text text-muted">Filter out words <strong>not</strong> containing these letters</small>
+            <div class="form-group col-md-6">
+                <label for="mask">Contains</label>
+                <input type="text" id ="contains" name="contains" value="@ViewBag.Contains" class="form-control" aria-describedby="containHelp" placeholder="l, e, t, r, s" />
+                <small id="containHelp" class="form-text text-muted">Filter out words <strong>not</strong> containing these letters</small>
+            </div>
         </div>
 
         <div class="form-group">
@@ -30,7 +34,7 @@
     {
         <div>&nbsp;</div>
         <div>@ViewBag.Matches.Count matches</div>
-        <ul class="list-group">
+        <ul class="list-group" id="matches">
             @foreach (var word in ViewBag.Matches)
             {
                 <li class="list-group-item matched-word" data-trigger="updateAssociations">@word</li> 
@@ -42,4 +46,5 @@
 
 @section Scripts{
     <script src="~/js/associations.js"></script>
+    <script src="~/js/notcontains.js"></script>
 }

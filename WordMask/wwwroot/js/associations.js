@@ -19,7 +19,7 @@
         b = b.toUpperCase();
 
         let newAssociations = "";
-        associations.forEach(function (item, index) {
+        associations.forEach(function (item) {
             let association = item.split('=');
             if (association.length == 2) {
                 if (newAssociations != "") {

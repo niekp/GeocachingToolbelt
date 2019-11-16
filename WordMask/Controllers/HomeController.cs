@@ -56,6 +56,7 @@ namespace WordMask.Controllers
             ViewBag.NotContain = notcontain;
             ViewBag.Contains = contains;
             ViewBag.KnownLetters = knownletters;
+            ViewBag.Automode = Request.Form["notcontain-automode"] == "on";
 
             var ruleset = new Ruleset(
                 mask,
