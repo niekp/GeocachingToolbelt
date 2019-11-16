@@ -47,19 +47,20 @@ namespace WordMask.Controllers
 
         private string GetReplacedWord(string mask, Dictionary<char, char> associations)
         {
-            foreach (var letter in mask)
+            string replaced = "";
+            for (var i = 0; i < mask.Length; i++)
             {
-                if (associations.ContainsKey(letter))
+                if (associations.ContainsKey(mask[i]))
                 {
-                    mask = mask.Replace(letter, associations[letter]);
+                    replaced += associations[mask[i]];
                 }
                 else
                 {
-                    mask = mask.Replace(letter, '?');
+                    replaced += "?";
                 }
             }
 
-            return mask;
+            return replaced;
         }
 
         [HttpPost]
