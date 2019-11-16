@@ -6,8 +6,8 @@ namespace WordMask.Models
     public class Ruleset
     {
         private int length;
-        private Dictionary<int, int> matchingLetters = new Dictionary<int, int>();
-        private Dictionary<int, int> nonMatchingLetters = new Dictionary<int, int>();
+        private Dictionary<int, List<int>> matchingLetters = new Dictionary<int, List<int>>();
+        private Dictionary<int, List<int>> nonMatchingLetters = new Dictionary<int, List<int>>();
         private List<string> notContain;
         private List<string> contains;
         private Dictionary<char, char> knownLetters;
@@ -32,6 +32,7 @@ namespace WordMask.Models
             length = mask.Length;
             SetMatchingLetters();
             SetNonMatchingLetters();
+            Console.WriteLine(nonMatchingLetters);
         }
 
         public bool IsMatch(string word)
@@ -41,18 +42,25 @@ namespace WordMask.Models
                 return false;
             }
 
-            foreach (KeyValuePair<int, int> entry in matchingLetters)
+            foreach (KeyValuePair<int, List<int>> entry in matchingLetters)
             {
-                if (word[entry.Key] != word[entry.Value])
+                foreach (int i in entry.Value)
                 {
-                    return false;
+                    if (word[entry.Key] != word[i])
+                    {
+                        return false;
+                    }
                 }
             }
-            foreach (KeyValuePair<int, int> entry in nonMatchingLetters)
+
+            foreach (KeyValuePair<int, List<int>> entry in nonMatchingLetters)
             {
-                if (word[entry.Key] == word[entry.Value])
+                foreach (int i in entry.Value)
                 {
-                    return false;
+                    if (word[entry.Key] == word[i])
+                    {
+                        return false;
+                    }
                 }
             }
 
@@ -95,10 +103,11 @@ namespace WordMask.Models
                 {
                     if (letter == letter2 && indexA != indexB)
                     {
-                        if (!matchingLetters.ContainsKey(indexA) && (!matchingLetters.ContainsKey(indexB) || matchingLetters[indexB] != indexA))
+                        if (!matchingLetters.ContainsKey(indexA))
                         {
-                            matchingLetters.Add(indexA, indexB);
+                            matchingLetters.Add(indexA, new List<int>());
                         }
+                        matchingLetters[indexA].Add(indexB);
                     }
                     indexB++;
                 }
@@ -108,25 +117,23 @@ namespace WordMask.Models
 
         private void SetNonMatchingLetters()
         {
-            for (var i = 0; i < length; i++)
+            int indexA = 0;
+            foreach (var letter in mask)
             {
-                int indexA = 0;
-                foreach (var letter in mask)
+                int indexB = 0;
+                foreach (var letter2 in mask)
                 {
-                    int indexB = 0;
-                    foreach (var letter2 in mask)
+                    if (letter != letter2)
                     {
-                        if (letter != letter2)
+                        if (!nonMatchingLetters.ContainsKey(indexA))
                         {
-                            if (!nonMatchingLetters.ContainsKey(indexA) && (!nonMatchingLetters.ContainsKey(indexB) || nonMatchingLetters[indexB] != indexA))
-                            {
-                                nonMatchingLetters.Add(indexA, indexB);
-                            }
+                            nonMatchingLetters.Add(indexA, new List<int>());
                         }
-                        indexB++;
+                        nonMatchingLetters[indexA].Add(indexB);
                     }
-                    indexA++;
+                    indexB++;
                 }
+                indexA++;
             }
         }
     }
