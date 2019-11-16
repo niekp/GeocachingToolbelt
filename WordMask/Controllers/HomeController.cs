@@ -43,18 +43,9 @@ namespace WordMask.Controllers
         [HttpPost]
         public IActionResult Index(string mask, string notcontain = "", string contains = "", string knownletters = "")
         {
-            if (notcontain == null)
-            {
-                notcontain = "";
-            }
-            if (contains == null)
-            {
-                contains = "";
-            }
-            if (knownletters == null)
-            {
-                knownletters = "";
-            }
+            notcontain ??= "";
+            contains ??= "";
+            knownletters ??= "";
 
             ViewBag.Mask = mask;
             ViewBag.NotContain = notcontain;

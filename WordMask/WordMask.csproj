@@ -11,4 +11,7 @@
   <ItemGroup>
     <None Remove="ned-niek.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Views\Home\Privacy.cshtml" />
+  </ItemGroup>
 </Project>

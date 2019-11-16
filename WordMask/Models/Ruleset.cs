@@ -5,44 +5,48 @@ namespace WordMask.Models
 {
     public class Ruleset
     {
-        private int length;
-        private Dictionary<int, List<int>> matchingLetters = new Dictionary<int, List<int>>();
-        private Dictionary<int, List<int>> nonMatchingLetters = new Dictionary<int, List<int>>();
-        private List<string> notContain;
-        private List<string> contains;
-        private Dictionary<char, char> knownLetters;
-        private string mask;
+        private readonly int _length;
+        private readonly Dictionary<int, List<int>> _matchingLetters = new Dictionary<int, List<int>>();
+        private readonly Dictionary<int, List<int>> _nonMatchingLetters = new Dictionary<int, List<int>>();
+        private readonly List<string> _notContain;
+        private readonly List<string> _contains;
+        private readonly Dictionary<char, char> _knownLetters;
+        private readonly string _mask;
 
+        /// <summary>
+        /// Create a ruleset to match a word against
+        /// </summary>
+        /// <param name="mask">The masked word</param>
+        /// <param name="notContain">List of letters the word may not contain</param>
+        /// <param name="contains">List of letters the word must contain</param>
+        /// <param name="knownLetters">List of known matches (a=b, c=d, ..)</param>
         public Ruleset(string mask, List<string> notContain = null, List<string> contains = null, Dictionary<char, char> knownLetters = null)
         {
-            this.mask = mask.ToUpper();
-            if (notContain != null)
-            {
-                this.notContain = notContain;
-            }
-            if (notContain != null)
-            {
-                this.contains = contains;
-            }
-            if (knownLetters != null)
-            {
-                this.knownLetters = knownLetters;
-            }
+            _mask = mask.ToUpper();
+            _notContain = notContain ?? _notContain;
+            _contains = contains ?? _contains;
+            _knownLetters = knownLetters ?? _knownLetters;
+            _length = mask.Length;
 
-            length = mask.Length;
             SetMatchingLetters();
             SetNonMatchingLetters();
-            Console.WriteLine(nonMatchingLetters);
         }
 
+        /// <summary>
+        /// Does a word match the ruleset
+        /// </summary>
+        /// <param name="word"></param>
+        /// <returns></returns>
         public bool IsMatch(string word)
         {
-            if (word.Length != length)
+            // Match on length
+            if (word.Length != _length)
             {
                 return false;
             }
 
-            foreach (KeyValuePair<int, List<int>> entry in matchingLetters)
+            // Find matching letters on the same positions as the mask
+            foreach (KeyValuePair<int, List<int>> entry in _matchingLetters)
             {
                 foreach (int i in entry.Value)
                 {
@@ -53,7 +57,8 @@ namespace WordMask.Models
                 }
             }
 
-            foreach (KeyValuePair<int, List<int>> entry in nonMatchingLetters)
+            // Find non matching letters on the same positions as the mask
+            foreach (KeyValuePair<int, List<int>> entry in _nonMatchingLetters)
             {
                 foreach (int i in entry.Value)
                 {
@@ -64,50 +69,49 @@ namespace WordMask.Models
                 }
             }
 
-            foreach (var letter in notContain)
+            // Check if the word contains letters that are listed in 'not contain'
+            if (_notContain.Find(l => !string.IsNullOrEmpty(l) && word.Contains(l)) != null)
             {
-                if (letter != "" && word.Contains(letter))
-                {
-                    return false;
-                }
+                return false;
             }
 
-            foreach (var letter in contains)
+            // Check if the word is missing letters listed in 'contains'
+            if (_contains.Find(l => !string.IsNullOrEmpty(l) && !word.Contains(l)) != null)
             {
-                if (letter != "" && !word.Contains(letter))
-                {
-                    return false;
-                }
+                return false;
             }
-
-            foreach (var letter in knownLetters)
+            
+            // Check if the known letter matches match up
+            foreach (var letter in _knownLetters)
             {
-                int position = mask.IndexOf(letter.Key);
+                int position = _mask.IndexOf(letter.Key);
                 if (position >= 0 && word[position] != letter.Value)
                 {
                     return false;
                 }
             }
 
-
             return true;
         }
 
+        /// <summary>
+        /// Internal helper function to fill the 'matchingLetters' dictionary based on the mask
+        /// </summary>
         private void SetMatchingLetters()
         {
             int indexA = 0;
-            foreach (var letter in mask)
+            foreach (var letter in _mask)
             {
                 int indexB = 0;
-                foreach (var letter2 in mask)
+                foreach (var letter2 in _mask)
                 {
                     if (letter == letter2 && indexA != indexB)
                     {
-                        if (!matchingLetters.ContainsKey(indexA))
+                        if (!_matchingLetters.ContainsKey(indexA))
                         {
-                            matchingLetters.Add(indexA, new List<int>());
+                            _matchingLetters.Add(indexA, new List<int>());
                         }
-                        matchingLetters[indexA].Add(indexB);
+                        _matchingLetters[indexA].Add(indexB);
                     }
                     indexB++;
                 }
@@ -115,26 +119,30 @@ namespace WordMask.Models
             }
         }
 
+        /// <summary>
+        /// Internal helper function to fill the 'nonMatchingLetters' dictionary based on the mask
+        /// </summary>
         private void SetNonMatchingLetters()
         {
             int indexA = 0;
-            foreach (var letter in mask)
+            foreach (var letter in _mask)
             {
                 int indexB = 0;
-                foreach (var letter2 in mask)
+                foreach (var letter2 in _mask)
                 {
                     if (letter != letter2)
                     {
-                        if (!nonMatchingLetters.ContainsKey(indexA))
+                        if (!_nonMatchingLetters.ContainsKey(indexA))
                         {
-                            nonMatchingLetters.Add(indexA, new List<int>());
+                            _nonMatchingLetters.Add(indexA, new List<int>());
                         }
-                        nonMatchingLetters[indexA].Add(indexB);
+                        _nonMatchingLetters[indexA].Add(indexB);
                     }
                     indexB++;
                 }
                 indexA++;
             }
         }
+
     }
 }
