@@ -17,46 +17,41 @@ namespace GeocachingToolbelt.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(string coordA, string coordB, string coordC)
+        public IActionResult Index(string coords)
         {
-            ViewBag.CoordA = coordA;
-            ViewBag.CoordB = coordB;
-            ViewBag.CoordC = coordC;
-
-            Coordinate a, b, c;
-
-            try
-            {
-                a = new Coordinate(coordA);
-            }
-            catch (ArgumentException)
-            {
-                ViewBag.Error = "Coordinaat A is niet juist ingevoerd";
-                return View();
-            }
+            coords = coords.Replace("\r", "");
+            ViewBag.Coords = coords;
+            Coordinate c;
+            decimal x = 0;
+            decimal y = 0;
+            var count = 0;
 
             try
             {
-                b = new Coordinate(coordB);
+                foreach (var coord in coords.Split(Environment.NewLine))
+                {
+                    if (String.IsNullOrEmpty(coord))
+                    {
+                        continue;
+                    }
+
+                    c = new Coordinate(coord);
+                    x += c.Nord;
+                    y += c.East;
+                    count++;
+                }
+                if (count == 0)
+                {
+                    throw new ArgumentException("No coordinates given");
+                }
             }
             catch (ArgumentException)
             {
-                ViewBag.Error = "Coordinaat B is niet juist ingevoerd";
+                ViewBag.Error = "Coordinaat niet herkend";
                 return View();
             }
 
-            try
-            {
-                c = new Coordinate(coordC);
-            }
-            catch (ArgumentException)
-            {
-                ViewBag.Error = "Coordinaat C is niet juist ingevoerd";
-                return View();
-            }
-
-            var triangle = new Triangle(a, b, c);
-            ViewBag.Centroid = triangle.Centroid.WSG84;
+            ViewBag.Centroid = new Coordinate(x / count, y / count);
 
             return View();
         }

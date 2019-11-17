@@ -1,7 +1,12 @@
 ﻿@{
-    ViewBag.Title = "Zwaartepunt driehoek";
-    ViewBag.Description = "Bereken het geometrische zwaartepunt van een driehoek (3 coordinaten)";
+    ViewBag.Title = "Geometrisch zwaartepunt";
+    ViewBag.Description = "Bereken het geometrische zwaartepunt van een coordinaten";
 }
+<h1>Geometrisch zwaartepunt</h1>
+<div class="mb-3">
+    Bereken het geometrische zwaartepunt (middenpunt) van een aantal coordinaten.<br />
+    Door 3 coordinaten in te voeren bereken je bijvoorbeeld het zwaartepunt van een driehoek.
+</div>
 
 @if (ViewBag.Error != null)
 {
@@ -12,21 +17,9 @@
 
 <form method="post">
     <div class="form-group">
-        <label for="mask">Coordinaat punt A</label>
-        <input type="text" id="coordA" name="coordA" value="@ViewBag.CoordA" class="form-control" aria-describedby="coordAHelp" required />
-        <small id="coordAHelp" class="form-text text-muted">WSG84 formaat</small>
-    </div>
-    
-    <div class="form-group">
-        <label for="mask">Coordinaat punt B</label>
-        <input type="text" id="coordB" name="coordB" value="@ViewBag.CoordB" class="form-control" aria-describedby="coordBHelp" required />
-        <small id="coordAHelp" class="form-text text-muted">WSG84 formaat</small>
-    </div>
-
-    <div class="form-group">
-        <label for="mask">Coordinaat punt C</label>
-        <input type="text" id="coordC" name="coordC" value="@ViewBag.CoordC" class="form-control" aria-describedby="coordCHelp" required />
-        <small id="coordCHelp" class="form-text text-muted">WSG84 formaat</small>
+        <label for="coords">Coordinaten</label>
+        <textarea class="form-control" name="coords" id="coords" rows="4" aria-describedby="coordHelp">@ViewBag.Coords</textarea>
+        <small id="coordHelp" class="form-text text-muted">1 coordinaat per regel<br />WSG84 of decimaal formaat</small>
     </div>
 
     <button type="submit" class="btn btn-primary">Bereken</button>
@@ -37,7 +30,23 @@
     <div class="card mt-3">
         <div class="card-body">
             <h5 class="card-title">Middenpunt</h5>
-            <p class="card-text">@ViewBag.Centroid</p>
+            <p class="card-text">
+
+                <div class="form-group row">
+                    <label for="wsgResult" class="col-sm-2 col-form-label">WSG84</label>
+                    <div class="col-sm-10">
+                        @ViewBag.Centroid.GetWSG84()
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="decimalResult" class="col-sm-2 col-form-label">Decimaal</label>
+                    <div class="col-sm-10">
+                        @ViewBag.Centroid.GetDecimal()
+                    </div>
+                </div>
+
+            </p>
         </div>
     </div>
 }
