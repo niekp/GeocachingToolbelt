@@ -15,6 +15,18 @@
             @Html.ActionLink("Woordzoeker", "Index", "WordMask", null, new {@class = "btn btn-light stretched-link"})
         </div>
     </div>
+
+    <div class="card mr-3" style="width: 16rem;">
+        <img src="~/images/Centroid_1000.gif" class="card-img-top" alt="zwaartepunt">
+        <div class="card-body">
+            <h5 class="card-title">Zwaartepunt driehoek</h5>
+            <p class="card-text">
+                Bereken het geometrisch zwaartepunt van 3 coordinaten.
+            </p>
+
+            @Html.ActionLink("Berekenen", "Index", "Centroid", null, new {@class = "btn btn-light stretched-link"})
+        </div>
+    </div>
 </div>
 
 <h1>Externe tools</h1>
@@ -24,7 +36,7 @@
         <div class="card-body">
             <h5 class="card-title">Geocaching toolbox</h5>
             <p class="card-text">
-                De originele geocaching toolbox.
+                De geocaching toolbox bevat een hoop tools.
             </p>
 
             <a href="https://www.geocachingtoolbox.com/" class="btn btn-light stretched-link" target="_blank" rel="noopener noreferrer">Toolbox</a>

@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Zwaartepunt driehoek";
+    ViewBag.Description = "Bereken het geometrische zwaartepunt van een driehoek (3 coordinaten)";
+}
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.Error
+    </div>
+}
+
+<form method="post">
+    <div class="form-group">
+        <label for="mask">Coordinaat punt A</label>
+        <input type="text" id="coordA" name="coordA" value="@ViewBag.CoordA" class="form-control" aria-describedby="coordAHelp" required />
+        <small id="coordAHelp" class="form-text text-muted">WSG84 formaat</small>
+    </div>
+    
+    <div class="form-group">
+        <label for="mask">Coordinaat punt B</label>
+        <input type="text" id="coordB" name="coordB" value="@ViewBag.CoordB" class="form-control" aria-describedby="coordBHelp" required />
+        <small id="coordAHelp" class="form-text text-muted">WSG84 formaat</small>
+    </div>
+
+    <div class="form-group">
+        <label for="mask">Coordinaat punt C</label>
+        <input type="text" id="coordC" name="coordC" value="@ViewBag.CoordC" class="form-control" aria-describedby="coordCHelp" required />
+        <small id="coordCHelp" class="form-text text-muted">WSG84 formaat</small>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Bereken</button>
+</form>
+
+@if (@ViewBag.Centroid != null)
+{
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">Middenpunt</h5>
+            <p class="card-text">@ViewBag.Centroid</p>
+        </div>
+    </div>
+}
