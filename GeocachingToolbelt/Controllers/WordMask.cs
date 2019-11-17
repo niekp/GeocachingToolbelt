@@ -9,6 +9,7 @@ using GeocachingToolbelt.Models;
 
 namespace GeocachingToolbelt.Controllers
 {
+    [Route("woordzoeker")]
     public class WordMaskController : Controller
     {
         private readonly ILogger<WordMaskController> _logger;

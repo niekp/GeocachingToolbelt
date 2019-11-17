@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GeocachingToolbelt.Controllers
 {
+    [Route("zwaartepunt")]
     public class Centroid : Controller
     {
         public IActionResult Index()
