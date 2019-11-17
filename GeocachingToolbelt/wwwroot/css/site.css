@@ -90,6 +90,13 @@ body {
     margin-top:15px;
 }
 
+/* Some custom changes to the theme
+-------------------------------------------------- */
+
 .col-form-label {
     font-weight: bold;
+}
+
+.form-control {
+    color: #1c1c1c !important;
 }
