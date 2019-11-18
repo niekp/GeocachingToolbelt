@@ -25,7 +25,7 @@
     <button type="submit" class="btn btn-primary">Bereken</button>
 </form>
 
-@if (@ViewBag.Centroid != null)
+@if (ViewBag.Centroid is Coordinate)
 {
     <div class="card mt-3">
         <div class="card-body">
