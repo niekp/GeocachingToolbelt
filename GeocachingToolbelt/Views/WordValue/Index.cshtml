@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Stapeltellen";
+    ViewBag.Description = "Bereken de woordwaarde op diverse manieren waaronder stapeltellen";
+}
+<h1>Woordwaarde</h1>
+<div class="mb-3">
+    Bereken de woordwaarde van 1 of meerdere woorden via een aantal methodes tegelijkertijd, waaronder stapeltellen.
+</div>
+
+<div class="form-group">
+    <label for="coords">Woorden</label>
+    <textarea class="form-control" name="words" data-id="words" rows="6" aria-describedby="wordsHelp"></textarea>
+    <small id="wordsHelp" class="form-text text-muted">1 woord per regel</small>
+</div>
+
+<div data-id="result-container" class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width:300px;">&nbsp;</th>
+                <th>Stapeltelwaarde</th>
+                <th>Woordwaarde</th>
+                <th>1e letter</th>
+                <th>Lengte</th>
+                <th>Vanity</th>
+                <th>Scrabble</th>
+            </tr>
+        </thead>
+        <tbody data-id="result">
+            
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="~/js/word-value.js" asp-append-version="true"></script>   
+}

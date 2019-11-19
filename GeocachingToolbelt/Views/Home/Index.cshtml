@@ -2,7 +2,20 @@
     ViewBag.Title = "Home";
 }
 <h1>Geocaching toolbelt</h1>
-<div class="row mt-3">
+<div class="row mt-3 internal-tools">
+    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 d-flex align-items-stretch">
+        <div class="card mb-3 w-100">
+            <img src="~/images/scrabble.jpg" class="card-img-top" alt="woordwaarde">
+            <div class="card-body">
+                <h5 class="card-title">Woordwaarde</h5>
+                <p class="card-text">
+                    Bereken de woordwaarde van 1 of meerdere woorden via een aantal methodes tegelijkertijd, waaronder stapeltellen.
+                </p>
+
+                @Html.ActionLink("", "Index", "WordValue", null, new {@class = "btn btn-link stretched-link"})
+            </div>
+        </div>
+    </div>
     <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 d-flex align-items-stretch">
         <div class="card mb-3 w-100">
             <img src="~/images/woordenboek.jpg" class="card-img-top" alt="woordenboek">
@@ -81,7 +94,7 @@
     <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 d-flex align-items-stretch">
         <div class="card mb-3 w-100">
     
-            <img src="~/images/projectgc.jpg" class="card-img-top" alt="project gc">
+            <img src="~/images/projectgc.jpg" class="card-img-top" style="object-fit: contain;" alt="project gc">
             <div class="card-body">
                 <h5 class="card-title">Project GC</h5>
                 <p class="card-text">
