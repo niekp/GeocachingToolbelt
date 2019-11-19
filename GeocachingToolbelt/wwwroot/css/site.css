@@ -104,6 +104,11 @@ body {
     display: none;
 }
 
+[data-id="result-container"] th img {
+    width: 16px;
+    cursor: pointer;
+}
+
 .vanity {
     font-size: 0.6em;
 }
