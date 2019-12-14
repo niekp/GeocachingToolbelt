@@ -123,3 +123,14 @@ body {
 .internal-tools .card-img-top {
     height: 13vw;
 }
+
+/* Resistance */
+.colorpicker .color {
+    width:32px;
+    height:32px;
+    margin-right: 16px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    float:left;
+    border: 2px solid black;
+}

@@ -13,7 +13,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="~/favicon-16x16.png">
     <link rel="manifest" href="~/site.webmanifest">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <partial name="_AnalyticsPartial.cshtml">
 </head>
 <body>
@@ -32,8 +32,8 @@
                 <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "WordMask" ? "active" : "")">
                     @Html.ActionLink("Woordenboek filter", "Index", "WordMask", null, new {@class = "nav-link"})
                 </li>
-                <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Centroid" ? "active" : "")">
-                    @Html.ActionLink("Zwaartepunt", "Index", "Centroid", null, new {@class = "nav-link"})
+                <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Resistance" ? "active" : "")">
+                    @Html.ActionLink("Weerstand codes", "Index", "Resistance", null, new {@class = "nav-link"})
                 </li>
             </ul>
         </div>
