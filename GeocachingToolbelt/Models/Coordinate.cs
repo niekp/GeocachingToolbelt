@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace GeocachingToolbelt.Models
@@ -11,7 +12,7 @@ namespace GeocachingToolbelt.Models
         {
             input = Regex.Replace(input, "[^a-zA-Z0-9 .,]", "");
 
-            if (input.Contains("N") || input.Contains("E"))
+            if (input.Contains("N") || input.Contains("E") || input.Contains("S") || input.Contains("W"))
             {
                 ParseWSG84(input);
             }
@@ -40,25 +41,55 @@ namespace GeocachingToolbelt.Models
         {
             wsg84 = Normalize(wsg84);
             var wsg_parts = wsg84.Split("E");
+            var ns = 1;
+            var ew = 1;
 
-            if ((wsg84.Substring(0, 1)) != "N" || wsg_parts.Length != 2)
+            if (wsg_parts.Length == 1)
             {
-                throw new ArgumentException("Only nord/east coordinates are suppported");
+                wsg_parts = wsg84.Split("W");
+                ew = -1;
             }
 
-            var nord = wsg_parts[0].Replace("N", "").Trim();
-            var east = wsg_parts[1].Replace("E", "").Trim();
-            var wsg_nord = GetWSGData(nord);
-            var wsg_east = GetWSGData(east);
+            if (wsg84.Contains("S"))
+            {
+                ns = -1;
+            }
 
-            Nord = DmsToDD(wsg_nord.Degrees, wsg_nord.Minutes, wsg_nord.Seconds);
-            East = DmsToDD(wsg_east.Degrees, wsg_east.Minutes, wsg_east.Seconds);
+            if (wsg_parts.Length != 2)
+            {
+                throw new ArgumentException("Invalid coordinates");
+            }
+
+            var wsg_1 = GetWSGData(wsg_parts[0].Replace("N", "").Replace("S", ""));
+            var wsg_2 = GetWSGData(wsg_parts[1].Replace("E", "").Replace("W", ""));
+
+            Nord = DmsToDD(wsg_1.Degrees, wsg_1.Minutes, wsg_1.Seconds) * ns;
+            East = DmsToDD(wsg_2.Degrees, wsg_2.Minutes, wsg_2.Seconds) * ew;
         }
 
 
         public string GetWSG84()
         {
-            return String.Format("N {0} E {1}", DDToDM(Nord), DDToDM(East));
+            StringBuilder coord = new StringBuilder();
+            if (Nord < 0)
+            {
+                coord.Append("S " + DDToDM(Nord * -1));
+            }
+            else
+            {
+                coord.Append("N " + DDToDM(Nord));
+            }
+
+            if (East < 0)
+            {
+                coord.Append(" W " + DDToDM(East * -1));
+            }
+            else
+            {
+                coord.Append(" E " + DDToDM(East));
+            }
+
+            return coord.ToString();
         }
 
         public string GetDecimal()
@@ -95,7 +126,7 @@ namespace GeocachingToolbelt.Models
 
         private WSG GetWSGData(string coord_part)
         {
-            var parts = coord_part.Split(" ");
+            var parts = coord_part.Trim().Split(" ");
             if (parts.Length < 2)
             {
                 throw new ArgumentException("Invalid coordinate");
@@ -149,8 +180,10 @@ namespace GeocachingToolbelt.Models
             input = Regex.Replace(input, "[^a-zA-Z0-9 .,]", "");
             input = input.Trim()
                         .ToUpper()
-                        .Replace(", E", "")
-                        .Replace(",E", "")
+                        .Replace(", E", "E")
+                        .Replace(", W", "W")
+                        .Replace(",E", "E")
+                        .Replace(",W", "W")
                         .Replace(",", ".");
             return input;
         }
