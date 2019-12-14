@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -12,7 +13,7 @@ namespace GeocachingToolbelt.Models
         {
             input = Regex.Replace(input, "[^a-zA-Z0-9 .,]", "");
 
-            if (input.Contains("N") || input.Contains("E") || input.Contains("S") || input.Contains("W"))
+            if ((new string[] { "N", "E", "S", "W" }).Any(input.Contains))
             {
                 ParseWSG84(input);
             }
@@ -70,26 +71,12 @@ namespace GeocachingToolbelt.Models
 
         public string GetWSG84()
         {
-            StringBuilder coord = new StringBuilder();
-            if (Nord < 0)
-            {
-                coord.Append("S " + DDToDM(Nord * -1));
-            }
-            else
-            {
-                coord.Append("N " + DDToDM(Nord));
-            }
-
-            if (East < 0)
-            {
-                coord.Append(" W " + DDToDM(East * -1));
-            }
-            else
-            {
-                coord.Append(" E " + DDToDM(East));
-            }
-
-            return coord.ToString();
+            return String.Format("{0} {1} {2} {3}",
+                (Nord < 0 ? "S" : "N"),
+                DDToDM(Math.Abs(Nord)),
+                (East < 0 ? "W" : "E"),
+                DDToDM(Math.Abs(East))
+            );
         }
 
         public string GetDecimal()
