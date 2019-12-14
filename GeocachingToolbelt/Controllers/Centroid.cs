@@ -23,6 +23,8 @@ namespace GeocachingToolbelt.Controllers
             coords = coords.Replace("\r", "");
             ViewBag.Coords = coords;
             Coordinate c;
+            List<Coordinate> coordinates = new List<Coordinate>();
+
             decimal x = 0;
             decimal y = 0;
             var count = 0;
@@ -37,6 +39,7 @@ namespace GeocachingToolbelt.Controllers
                     }
 
                     c = new Coordinate(coord);
+                    coordinates.Add(c);
                     x += c.Nord;
                     y += c.East;
                     count++;
@@ -52,6 +55,7 @@ namespace GeocachingToolbelt.Controllers
                 return View();
             }
 
+            ViewBag.Coordinates = coordinates;
             ViewBag.Centroid = new Coordinate(x / count, y / count);
 
             return View();

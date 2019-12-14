@@ -48,5 +48,19 @@
 
             </p>
         </div>
+    </div>  
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">Kaart</h5>
+            <p class="card-text">
+                @{
+                    var data = new MapData();
+                    data.Coordinates = ViewBag.Coordinates;
+                    data.Hightlight = ViewBag.Centroid;
+                }
+                <partial name="~/Views/Shared/_MapPartial.cshtml" model="data" />
+            </p>
+        </div>
     </div>
 }
