@@ -3,8 +3,12 @@ namespace GeocachingToolbelt.Models
 {
     public class RD
     {
-        public double X;
-        public double Y;
+        private double x;
+        public double X { get => Math.Round(x); set => x = value; }
+
+        private double y;
+        public double Y { get => Math.Round(y); set => y = value; }
+
 
         public RD(double Latitude, double Longitude)
         {
