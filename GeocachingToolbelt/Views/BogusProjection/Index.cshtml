@@ -30,52 +30,70 @@
   && ViewBag.East is Coordinate
   && ViewBag.South is Coordinate
   && ViewBag.West is Coordinate) {
-<div class="table-responsive mt-3">
-    <table class="table">
-        <thead>
-            <tr>
-                <th style="width:300px;">&nbsp;</th>
-                <th>Latitude van</th>
-                <th>Latitude tot</th>
-                <th>Longitude van</th>
-                <th>Longitude tot</th>
-            </tr>
-        </thead>
-        <tbody data-id="result">
-            <tr>
-                <td>WSG84</td>
-                <td>@ViewBag.South.GetWSG84Latitude()</td>
-                <td>@ViewBag.Nord.GetWSG84Latitude()</td>
-                <td>@ViewBag.West.GetWSG84Longitude()</td>
-                <td>@ViewBag.East.GetWSG84Longitude()</td>
-            </tr>
-            
-            <tr>
-                <td>Decimaal</td>
-                <td>@ViewBag.South.Latitude.ToString("0.00000")</td>
-                <td>@ViewBag.Nord.Latitude.ToString("0.00000")</td>
-                <td>@ViewBag.West.Longitude.ToString("0.00000")</td>
-                <td>@ViewBag.East.Longitude.ToString("0.00000")</td>
-            </tr>
-            
-            <tr>
-                <td>RD</td>
-                <td>@Math.Round(ViewBag.South.GetRD().Y)</td>
-                <td>@Math.Round(ViewBag.Nord.GetRD().Y)</td>
-                <td>@Math.Round(ViewBag.West.GetRD().X)</td>
-                <td>@Math.Round(ViewBag.East.GetRD().X)</td>
-            </tr>
 
-            <tr>
-                <td>UTM (@ViewBag.Center.GetUTM().Grid)</td>
-                <td>@Math.Round(ViewBag.South.GetUTM().Y)</td>
-                <td>@Math.Round(ViewBag.Nord.GetUTM().Y)</td>
-                <td>@Math.Round(ViewBag.West.GetUTM().X)</td>
-                <td>@Math.Round(ViewBag.East.GetUTM().X)</td>
-            </tr>
+<div class="card mt-3">
+    <div class="card-body">
+        <h5 class="card-title">Bogus</h5>
+        <p class="card-text">
+            <partial name="~/Views/Shared/_CoordinatePartial.cshtml" model="ViewBag.Center" />
+        </p>
+    </div>
+</div>
 
-        </tbody>
-    </table>
+<div class="card mt-3">
+    <div class="card-body">
+        <h5 class="card-title">Projecties</h5>
+        <p class="card-text">
+
+            <div class="table-responsive mt-3">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="width:300px;">&nbsp;</th>
+                            <th>Latitude van</th>
+                            <th>Latitude tot</th>
+                            <th>Longitude van</th>
+                            <th>Longitude tot</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>WSG84</td>
+                            <td>@ViewBag.South.GetWSG84Latitude()</td>
+                            <td>@ViewBag.Nord.GetWSG84Latitude()</td>
+                            <td>@ViewBag.West.GetWSG84Longitude()</td>
+                            <td>@ViewBag.East.GetWSG84Longitude()</td>
+                        </tr>
+            
+                        <tr>
+                            <td>Decimaal</td>
+                            <td>@ViewBag.South.Latitude.ToString("0.00000")</td>
+                            <td>@ViewBag.Nord.Latitude.ToString("0.00000")</td>
+                            <td>@ViewBag.West.Longitude.ToString("0.00000")</td>
+                            <td>@ViewBag.East.Longitude.ToString("0.00000")</td>
+                        </tr>
+            
+                        <tr>
+                            <td>RD</td>
+                            <td>@Math.Round(ViewBag.South.GetRD().Y)</td>
+                            <td>@Math.Round(ViewBag.Nord.GetRD().Y)</td>
+                            <td>@Math.Round(ViewBag.West.GetRD().X)</td>
+                            <td>@Math.Round(ViewBag.East.GetRD().X)</td>
+                        </tr>
+
+                        <tr>
+                            <td>UTM (@ViewBag.Center.GetUTM().Grid)</td>
+                            <td>@Math.Round(ViewBag.South.GetUTM().Y)</td>
+                            <td>@Math.Round(ViewBag.Nord.GetUTM().Y)</td>
+                            <td>@Math.Round(ViewBag.West.GetUTM().X)</td>
+                            <td>@Math.Round(ViewBag.East.GetUTM().X)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+                
+        </p>
+    </div>
 </div>
 
 <div class="card mt-3">
