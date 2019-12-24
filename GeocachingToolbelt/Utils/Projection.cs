@@ -34,7 +34,7 @@ namespace GeocachingToolbelt.Utils
         }
 
         // Another method
-        public Coordinate ProjectX(double distance, double bearing)
+        private Coordinate ProjectX(double distance, double bearing)
         {
             var radius = 6371000;
             double lat1 = _coordinate.Latitude.ToRadians();

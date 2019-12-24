@@ -25,6 +25,7 @@
     <Folder Include="Views\WordValue\" />
     <Folder Include="Views\JigidiSolver\" />
     <Folder Include="Views\Resistance\" />
+    <Folder Include="Views\BogusProjection\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="4.3.1" />

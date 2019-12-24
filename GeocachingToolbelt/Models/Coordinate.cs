@@ -68,15 +68,24 @@ namespace GeocachingToolbelt.Models
             Longitude = DmsToDD(wsg_2.Degrees, wsg_2.Minutes, wsg_2.Seconds) * ew;
         }
 
-
         public string GetWSG84()
         {
             return String.Format("{0} {1} {2} {3}",
                 (Latitude < 0 ? "S" : "N"),
-                DDToDM(Math.Abs(Latitude)),
+                GetWSG84Latitude(),
                 (Longitude < 0 ? "W" : "E"),
-                DDToDM(Math.Abs(Longitude))
+                GetWSG84Longitude()
             );
+        }
+
+        public string GetWSG84Latitude()
+        {
+            return DDToDM(Math.Abs(Latitude));
+        }
+
+        public string GetWSG84Longitude()
+        {
+            return DDToDM(Math.Abs(Longitude));
         }
 
         public string GetDecimal()
@@ -183,7 +192,7 @@ namespace GeocachingToolbelt.Models
         private string DDToDM(double d)
         {
             double fraction = d - Math.Floor(d);
-            return String.Format("{0} {1}", Math.Floor(d), Math.Round(fraction * 60, 3));
+            return String.Format("{0} {1:00.000}", Math.Floor(d), Math.Round(fraction * 60, 3));
         }
     }
 }

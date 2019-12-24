@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "Bogus projectie";
+    ViewBag.Description = "Projecteer een 2 mile cirkel om het bogus coord en vind de range waarin je moet puzzelen in verschillende coordinaat formaten.";
+}
+<h1>Bogus projectie</h1>
+<div class="mb-3">
+    Projecteer een 2 mile cirkel om het bogus coordinaat en vind de range waarin je moet puzzelen.<br />
+    Deze range wordt in verschillende coordinaat formaten getoond.
+</div>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.Error
+    </div>
+}
+
+<form method="post">
+    <div class="form-group">
+        <label for="coords">Coordinaten</label>
+        <input type="text" class="form-control" name="coord" id="coords" aria-describedby="coordHelp" value="@(ViewBag.Center is Coordinate ? ViewBag.Center.GetWSG84() : "")" />
+        <small id="coordHelp" class="form-text text-muted">WSG84 of decimaal formaat</small>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Bereken</button>
+</form>
+
+@if (ViewBag.Center is Coordinate
+  && ViewBag.Nord is Coordinate
+  && ViewBag.East is Coordinate
+  && ViewBag.South is Coordinate
+  && ViewBag.West is Coordinate) {
+<div class="table-responsive mt-3">
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width:300px;">&nbsp;</th>
+                <th>Latitude van</th>
+                <th>Latitude tot</th>
+                <th>Longitude van</th>
+                <th>Longitude tot</th>
+            </tr>
+        </thead>
+        <tbody data-id="result">
+            <tr>
+                <td>WSG84</td>
+                <td>@ViewBag.Nord.GetWSG84Latitude()</td>
+                <td>@ViewBag.South.GetWSG84Latitude()</td>
+                <td>@ViewBag.West.GetWSG84Longitude()</td>
+                <td>@ViewBag.East.GetWSG84Longitude()</td>
+            </tr>
+
+            <tr>
+                <td>Decimaal</td>
+                <td>@ViewBag.Nord.Latitude</td>
+                <td>@ViewBag.South.Latitude</td>
+                <td>@ViewBag.West.Longitude</td>
+                <td>@ViewBag.East.Longitude</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+}
