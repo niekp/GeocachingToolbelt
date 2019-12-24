@@ -105,6 +105,17 @@ namespace GeocachingToolbelt.Models
             return _utm;
         }
 
+        private RD _rd;
+        public RD GetRD()
+        {
+            if (!(_rd is RD))
+            {
+                _rd = new RD(Latitude, Longitude);
+            }
+
+            return _rd;
+        }
+
         public GlobalCoordinates GetGlobalCoordinates()
         {
             return new GlobalCoordinates(
