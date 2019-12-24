@@ -91,7 +91,7 @@ namespace GeocachingToolbelt.Models
 
         public string GetDecimal()
         {
-            return String.Format("{0}, {1}", Math.Round(Latitude, 5), Math.Round(Longitude, 5));
+            return String.Format("{0:0.00000}, {1:0.00000}", Math.Round(Latitude, 5), Math.Round(Longitude, 5));
         }
 
         private UtmCoordinate _utm;

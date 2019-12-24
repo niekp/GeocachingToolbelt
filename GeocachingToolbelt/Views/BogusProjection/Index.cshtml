@@ -52,10 +52,10 @@
             
             <tr>
                 <td>Decimaal</td>
-                <td>@ViewBag.South.Latitude</td>
-                <td>@ViewBag.Nord.Latitude</td>
-                <td>@ViewBag.West.Longitude</td>
-                <td>@ViewBag.East.Longitude</td>
+                <td>@ViewBag.South.Latitude.ToString("0.00000")</td>
+                <td>@ViewBag.Nord.Latitude.ToString("0.00000")</td>
+                <td>@ViewBag.West.Longitude.ToString("0.00000")</td>
+                <td>@ViewBag.East.Longitude.ToString("0.00000")</td>
             </tr>
             
             <tr>
@@ -67,7 +67,7 @@
             </tr>
 
             <tr>
-                <td>UTM</td>
+                <td>UTM (@ViewBag.Center.GetUTM().Grid)</td>
                 <td>@Math.Round(ViewBag.South.GetUTM().Y)</td>
                 <td>@Math.Round(ViewBag.Nord.GetUTM().Y)</td>
                 <td>@Math.Round(ViewBag.West.GetUTM().X)</td>
