@@ -44,18 +44,26 @@
         <tbody data-id="result">
             <tr>
                 <td>WSG84</td>
-                <td>@ViewBag.Nord.GetWSG84Latitude()</td>
                 <td>@ViewBag.South.GetWSG84Latitude()</td>
+                <td>@ViewBag.Nord.GetWSG84Latitude()</td>
                 <td>@ViewBag.West.GetWSG84Longitude()</td>
                 <td>@ViewBag.East.GetWSG84Longitude()</td>
             </tr>
-
+            
             <tr>
                 <td>Decimaal</td>
-                <td>@ViewBag.Nord.Latitude</td>
                 <td>@ViewBag.South.Latitude</td>
+                <td>@ViewBag.Nord.Latitude</td>
                 <td>@ViewBag.West.Longitude</td>
                 <td>@ViewBag.East.Longitude</td>
+            </tr>
+            
+            <tr>
+                <td>UTM</td>
+                <td>@Math.Round(ViewBag.South.GetUTM().Y)</td>
+                <td>@Math.Round(ViewBag.Nord.GetUTM().Y)</td>
+                <td>@Math.Round(ViewBag.West.GetUTM().X)</td>
+                <td>@Math.Round(ViewBag.East.GetUTM().X)</td>
             </tr>
 
         </tbody>

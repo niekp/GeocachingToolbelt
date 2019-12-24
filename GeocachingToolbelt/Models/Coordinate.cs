@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Geodesy;
 
 namespace GeocachingToolbelt.Models
 {
@@ -91,6 +92,25 @@ namespace GeocachingToolbelt.Models
         public string GetDecimal()
         {
             return String.Format("{0}, {1}", Math.Round(Latitude, 5), Math.Round(Longitude, 5));
+        }
+
+        private UtmCoordinate _utm;
+        public UtmCoordinate GetUTM()
+        {
+            if (!(_utm is UtmCoordinate))
+            {
+                _utm = (UtmCoordinate)new UtmProjection().ToEuclidian(GetGlobalCoordinates());
+            }
+
+            return _utm;
+        }
+
+        public GlobalCoordinates GetGlobalCoordinates()
+        {
+            return new GlobalCoordinates(
+                new Angle(Latitude),
+                new Angle(Longitude)
+            );
         }
 
         private void ParseDecimal(string d)
