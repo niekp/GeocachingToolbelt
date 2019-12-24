@@ -10,11 +10,11 @@
 <div data-container="coordinates" style="display: none;">
     @foreach (var coord in Model.Coordinates)
     {
-        <coord data-lat="@coord.Nord" data-long="@coord.East" />
+        <coord data-lat="@coord.Latitude" data-long="@coord.Longitude" />
     }
     @if (@Model.Hightlight != null)
     {
-        <coord data-lat="@Model.Hightlight.Nord" data-long="@Model.Hightlight.East" data-color="red" />
+        <coord data-lat="@Model.Hightlight.Latitude" data-long="@Model.Hightlight.Longitude" data-color="red" />
     }
 </div>
 

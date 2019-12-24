@@ -7,7 +7,7 @@ namespace GeocachingToolbelt.Models
 {
     public class Coordinate
     {
-        public decimal Nord, East;
+        public double Latitude, Longitude;
 
         public Coordinate(string input)
         {
@@ -32,10 +32,10 @@ namespace GeocachingToolbelt.Models
         }
 
 
-        public Coordinate(decimal nord, decimal east)
+        public Coordinate(double latitude, double longitude)
         {
-            Nord = nord;
-            East = east;
+            Latitude = latitude;
+            Longitude = longitude;
         }
 
         public void ParseWSG84(string wsg84)
@@ -64,24 +64,24 @@ namespace GeocachingToolbelt.Models
             var wsg_1 = GetWSGData(wsg_parts[0].Replace("N", "").Replace("S", ""));
             var wsg_2 = GetWSGData(wsg_parts[1].Replace("E", "").Replace("W", ""));
 
-            Nord = DmsToDD(wsg_1.Degrees, wsg_1.Minutes, wsg_1.Seconds) * ns;
-            East = DmsToDD(wsg_2.Degrees, wsg_2.Minutes, wsg_2.Seconds) * ew;
+            Latitude = DmsToDD(wsg_1.Degrees, wsg_1.Minutes, wsg_1.Seconds) * ns;
+            Longitude = DmsToDD(wsg_2.Degrees, wsg_2.Minutes, wsg_2.Seconds) * ew;
         }
 
 
         public string GetWSG84()
         {
             return String.Format("{0} {1} {2} {3}",
-                (Nord < 0 ? "S" : "N"),
-                DDToDM(Math.Abs(Nord)),
-                (East < 0 ? "W" : "E"),
-                DDToDM(Math.Abs(East))
+                (Latitude < 0 ? "S" : "N"),
+                DDToDM(Math.Abs(Latitude)),
+                (Longitude < 0 ? "W" : "E"),
+                DDToDM(Math.Abs(Longitude))
             );
         }
 
         public string GetDecimal()
         {
-            return String.Format("{0}, {1}", Decimal.Round(Nord, 5), Decimal.Round(East, 5));
+            return String.Format("{0}, {1}", Math.Round(Latitude, 5), Math.Round(Longitude, 5));
         }
 
         private void ParseDecimal(string d)
@@ -92,18 +92,18 @@ namespace GeocachingToolbelt.Models
                 throw new ArgumentException("Invalid coordinate");
             }
 
-            if (decimal.TryParse(parts[0], out var n))
+            if (double.TryParse(parts[0], out var n))
             {
-                Nord = n;
+                Latitude = n;
             }
             else
             {
                 throw new ArgumentException("Invalid coordinate");
             }
 
-            if (decimal.TryParse(parts[1], out var e))
+            if (double.TryParse(parts[1], out var e))
             {
-                East = e;
+                Longitude = e;
             }
             else
             {
@@ -175,14 +175,14 @@ namespace GeocachingToolbelt.Models
             return input;
         }
 
-        private decimal DmsToDD(double d, double m = 0, double s = 0)
+        private double DmsToDD(double d, double m = 0, double s = 0)
         {
-            return Convert.ToDecimal((d + (m / 60) + (s / 3600)) * (d < 0 ? -1 : 1));
+            return (d + (m / 60) + (s / 3600)) * (d < 0 ? -1 : 1);
         }
 
-        private string DDToDM(decimal d)
+        private string DDToDM(double d)
         {
-            decimal fraction = d - Math.Floor(d);
+            double fraction = d - Math.Floor(d);
             return String.Format("{0} {1}", Math.Floor(d), Math.Round(fraction * 60, 3));
         }
     }

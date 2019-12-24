@@ -25,8 +25,8 @@ namespace GeocachingToolbelt.Controllers
             Coordinate c;
             List<Coordinate> coordinates = new List<Coordinate>();
 
-            decimal x = 0;
-            decimal y = 0;
+            double x = 0;
+            double y = 0;
             var count = 0;
 
             try
@@ -40,8 +40,8 @@ namespace GeocachingToolbelt.Controllers
 
                     c = new Coordinate(coord);
                     coordinates.Add(c);
-                    x += c.Nord;
-                    y += c.East;
+                    x += c.Latitude;
+                    y += c.Longitude;
                     count++;
                 }
                 if (count == 0)
