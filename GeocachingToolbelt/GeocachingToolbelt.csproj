@@ -29,6 +29,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="4.3.1" />
+    <PackageReference Include="Geodesy" Version="2.0.5" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Models\Triangle.cs" />

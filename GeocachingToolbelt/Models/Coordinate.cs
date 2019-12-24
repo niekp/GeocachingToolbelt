@@ -34,8 +34,8 @@ namespace GeocachingToolbelt.Models
 
         public Coordinate(double latitude, double longitude)
         {
-            Latitude = latitude;
-            Longitude = longitude;
+            Latitude = Math.Round(latitude, 5);
+            Longitude = Math.Round(longitude, 5);
         }
 
         public void ParseWSG84(string wsg84)
@@ -194,5 +194,6 @@ namespace GeocachingToolbelt.Models
             double fraction = d - Math.Floor(d);
             return String.Format("{0} {1:00.000}", Math.Floor(d), Math.Round(fraction * 60, 3));
         }
+
     }
 }
