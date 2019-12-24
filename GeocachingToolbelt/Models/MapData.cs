@@ -6,6 +6,7 @@ namespace GeocachingToolbelt.Models
     public class MapData
     {
         public List<Coordinate> Coordinates = new List<Coordinate>();
-        public Coordinate Hightlight = null;
+        public Coordinate Hightlight;
+        public double Radius;
     }
 }

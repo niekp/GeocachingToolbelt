@@ -14,7 +14,10 @@
     }
     @if (@Model.Hightlight != null)
     {
-        <coord data-lat="@Model.Hightlight.Latitude" data-long="@Model.Hightlight.Longitude" data-color="red" />
+        <coord data-lat="@Model.Hightlight.Latitude"
+               data-long="@Model.Hightlight.Longitude"
+               data-color="red"
+               data-radius="@Model.Radius" />
     }
 </div>
 
@@ -38,13 +41,28 @@
     document.querySelectorAll("[data-container='coordinates'] coord").forEach(coord => {
         var latitude = parseFloat(coord.dataset.lat);
         var longitude = parseFloat(coord.dataset.long);
+        var radius = parseFloat(coord.dataset.radius);
         coords = { lat: latitude, lng: longitude };
         var pngIcon = new H.map.Icon("/images/marker-" + (coord.dataset.color != undefined ? coord.dataset.color : "blue") + ".png");
-
+        
 	    var marker = new H.map.Marker({
 		    lat: latitude,
             lng: longitude
-        }, {icon: pngIcon});
+        }, { icon: pngIcon });
+
+        if (radius) {
+            marker = new H.map.Circle(
+                { lat: latitude, lng: longitude },
+                radius,
+                {
+                    style: {
+                        strokeColor: 'rgba(55, 85, 170, 0.6)', // Color of the perimeter
+                        lineWidth: 2,
+                        fillColor: 'rgba(0, 128, 0, 0.3)'  // Color of the circle
+                    }
+                }
+            );
+        }
 
         group.addObject(marker);
     });
