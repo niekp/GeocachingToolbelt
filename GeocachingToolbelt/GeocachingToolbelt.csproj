@@ -7,7 +7,7 @@
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'WordMask' ">
     <StartAction>Project</StartAction>
-    <ApplicationURL>https://localhost:5001;http://localhost:5000</ApplicationURL>
+    <ApplicationURL>http://localhost:5000</ApplicationURL>
   </PropertyGroup>
   <ItemGroup>
   </ItemGroup>
@@ -33,5 +33,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Models\Triangle.cs" />
+    <Compile Remove="Utils\Projection.cs" />
   </ItemGroup>
 </Project>

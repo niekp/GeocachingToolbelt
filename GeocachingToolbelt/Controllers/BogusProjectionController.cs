@@ -31,10 +31,10 @@ namespace GeocachingToolbelt.Controllers
                 return View();
             }
 
-            ViewBag.Nord = new Projection(coordinate).Project(3218.688, 0);
-            ViewBag.East = new Projection(coordinate).Project(3218.688, 90);
-            ViewBag.South = new Projection(coordinate).Project(3218.688, 180);
-            ViewBag.West = new Projection(coordinate).Project(3218.688, 270);
+            ViewBag.Nord = coordinate.Project(3218.688, 0);
+            ViewBag.East = coordinate.Project(3218.688, 90);
+            ViewBag.South = coordinate.Project(3218.688, 180);
+            ViewBag.West = coordinate.Project(3218.688, 270);
             ViewBag.Center = coordinate;
 
             return View();
