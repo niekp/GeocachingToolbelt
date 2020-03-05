@@ -26,6 +26,8 @@
     <Folder Include="Views\JigidiSolver\" />
     <Folder Include="Views\Resistance\" />
     <Folder Include="Views\BogusProjection\" />
+    <Folder Include="Views\Gpx\" />
+    <Folder Include="wwwroot\GPX\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="4.3.1" />

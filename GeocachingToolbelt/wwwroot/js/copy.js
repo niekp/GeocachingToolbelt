@@ -1,8 +1,14 @@
 ﻿(function ($) {
 
     $(document).ready(function () {
-        $("[data-trigger='copy']").on('click', copyColumn);
+        $("td [data-trigger='copy']").on('click', copyCell);
+        $("th [data-trigger='copy']").on('click', copyColumn);
     });
+
+    function copyCell(event) {
+        let $td = $(event.currentTarget).closest("td");
+        copyToClipboard($td.text().trim());
+    }
 
     var copyColumn = function (event) {
         let $th = $(event.currentTarget).closest("th"),
