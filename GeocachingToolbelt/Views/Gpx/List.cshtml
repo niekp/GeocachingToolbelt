@@ -1,6 +1,11 @@
 ﻿@model List<Geocache>
+@{
+    ViewBag.Title = "Lijst";
+}
+
 <h1>Lijst</h1>
-<a asp-action="Download" asp-route-guid="@(ViewContext.RouteData.Values["guid"])"  class="btn btn-primary">Download GPX</a>
+<a asp-action="Download" asp-route-guid="@(ViewContext.RouteData.Values["guid"])" class="btn btn-primary">Download GPX</a>
+<a href="javascript:;" class="btn btn-primary" data-trigger="copy-current-url">Kopieer deelbare link</a>
 <a asp-action="Index" class="btn btn-primary">Upload een nieuwe lijst</a>
 
 <div class="table-responsive mt-5">
@@ -16,13 +21,13 @@
         <tbody>
             @foreach (var cache in Model)
             {
-            <tr>
-                <td>@cache.GCCode</td>
-                <td>@cache.Title</td>
-                <td>@cache.Coordinate.GetWSG84() <img src="~/images/copy.png" alt="copy" title="Kopieer" data-trigger="copy" /></td>
-                <td><a class="btn btn-primary" target="_blank" href="https://coord.info/@cache.GCCode">Openen</a></td>
-                
-            </tr>
+                <tr>
+                    <td>@cache.GCCode</td>
+                    <td>@cache.Title</td>
+                    <td>@cache.Coordinate.GetWSG84() <img src="~/images/copy.png" alt="copy" title="Kopieer" data-trigger="copy" /></td>
+                    <td><a class="btn btn-primary" target="_blank" href="https://coord.info/@cache.GCCode">Openen</a></td>
+
+                </tr>
             }
         </tbody>
     </table>

@@ -15,6 +15,7 @@ namespace GeocachingToolbelt.Controllers
     [Route("delen")]
     public class GpxController : Controller
     {
+        [HttpGet]
         public IActionResult Index()
         {
             return View(new GpxViewModel());
@@ -28,7 +29,7 @@ namespace GeocachingToolbelt.Controllers
         [HttpPost]
         public async Task<IActionResult> Upload(GpxViewModel importModel)
         {
-            string ext = Path.GetExtension(importModel.GpxFile.FileName);
+            string ext = Path.GetExtension(importModel?.GpxFile?.FileName);
             if (ext != ".gpx")
             {
                 ModelState.AddModelError(nameof(importModel.GpxFile), "Het gekozen bestand is geen GPX bestand.");
@@ -86,7 +87,7 @@ namespace GeocachingToolbelt.Controllers
             return caches.OrderBy(c => c.Title).ToList();
         }
 
-        [Route("/gpx/list/{guid}")]
+        [Route("lijst/{guid}")]
         public IActionResult List(string guid)
         {
             try
@@ -100,7 +101,7 @@ namespace GeocachingToolbelt.Controllers
         }
 
 
-        [Route("/gpx/download/{guid}")]
+        [Route("download/{guid}")]
         public IActionResult Download(string guid)
         {
             try

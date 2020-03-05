@@ -3,6 +3,7 @@
     $(document).ready(function () {
         $("td [data-trigger='copy']").on('click', copyCell);
         $("th [data-trigger='copy']").on('click', copyColumn);
+        $("[data-trigger='copy-current-url']").on('click', copyUrl);
     });
 
     function copyCell(event) {
@@ -22,6 +23,11 @@
         });
 
         copyToClipboard(data);
+    }
+
+    function copyUrl() {
+        copyToClipboard(window.location.href);
+        alert("De link is gekopieerd.");
     }
 
     const copyToClipboard = str => {
