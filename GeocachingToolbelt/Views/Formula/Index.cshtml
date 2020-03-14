@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Coordinaat formule";
+    ViewBag.Description = "Bereken een coordinaat met variabele gegevens.";
+}
+<h1>Coordinaat formule</h1>
+<div class="mb-3">
+    Bereken het coordinaat met variabele gegevens. Bijvoorbeeld met de ABC van een mysterie of multi.
+</div>
+
+<div class="form-group">
+    <label for="coords">Formule</label>
+    <textarea class="form-control" name="formula" data-id="formula" rows="1"></textarea>
+</div>
+
+<div class="form-group">
+    <label for="coords">Resultaat</label>
+    <textarea class="form-control" name="result" data-id="coordinate-result" rows="1"></textarea>
+</div>
+
+<div data-id="result-container" class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width:300px;">Variabele</th>
+                <th>Antwoord</th>
+            </tr>
+        </thead>
+        <tbody data-id="result">
+            
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="~/js/copy.js" asp-append-version="true"></script>   
+    <script src="~/js/formula.js" asp-append-version="true"></script>   
+}

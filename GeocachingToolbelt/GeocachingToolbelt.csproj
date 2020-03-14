@@ -28,6 +28,7 @@
     <Folder Include="Views\BogusProjection\" />
     <Folder Include="Views\Gpx\" />
     <Folder Include="wwwroot\GPX\" />
+    <Folder Include="Views\Formula\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="4.3.1" />
