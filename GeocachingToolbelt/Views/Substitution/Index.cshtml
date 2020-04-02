@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Substitutie solver";
+    ViewBag.Description = "Los een substitutie cipher handmatig op";
+}
+<h1>Substitutie solver</h1>
+<div class="mb-3">
+    Los een substitutie cipher handmatig op m.b.v. deze tool.
+</div>
+
+<div class="form-group">
+    <label for="coords">Geheime tekst</label>
+    <textarea class="form-control" data-id="encoded-text" rows="3"></textarea>
+</div>
+
+<div data-id="decoded-text">
+
+</div>
+
+<div data-id="mapping">
+
+</div>
+
+@section Scripts {
+    <script src="~/js/substitution.js" asp-append-version="true"></script>
+    <script src="~/js/resistance.js" asp-append-version="true"></script>
+}

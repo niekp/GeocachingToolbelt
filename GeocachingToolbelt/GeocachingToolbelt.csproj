@@ -18,6 +18,7 @@
   <ItemGroup>
     <Content Remove="Views\Home\Privacy.cshtml" />
     <Content Remove="Views\WordMask\Privacy.cshtml" />
+    <Content Remove="Views\Resistance\Resistance\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Home\" />
@@ -28,6 +29,8 @@
     <Folder Include="Views\BogusProjection\" />
     <Folder Include="Views\Gpx\" />
     <Folder Include="wwwroot\GPX\" />
+    <Folder Include="Views\Resistance\" />
+    <Folder Include="Views\Substitution\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="4.3.1" />
