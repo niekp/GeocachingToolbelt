@@ -3,8 +3,9 @@
     ViewBag.Title = "Coordinaat formule";
     ViewBag.Description = "Bereken een coordinaat met variabele gegevens.";
 }
-<h1>@Model.Name</h1>
-<a href="javascript:;" class="btn btn-primary" data-trigger="copy-current-url">Kopieer deelbare link voor onderweg</a>
+<h1 class="float-left">@Model.Name</h1>
+<a href="javascript:;" class="btn btn-primary float-right" data-trigger="copy-current-url">Kopieer link voor onderweg</a>
+<div style="clear:both;" />
 
 <input type="hidden" name="guid" data-id="guid" value="@Model.GUID" />
 

@@ -4,6 +4,10 @@
     ViewBag.Description = "Bereken een coordinaat met variabele gegevens.";
 }
 <h1>@Model.Name</h1>
+<div class="mb-3">
+    Zet elke WP op een nieuwe regel. Zet haakjes om <strong>alle</strong> variabelen, ook al is dit een enkele letter.
+    Bijvoorbeeld: <pre>N 52 59.(A)23 E 006 33.(A*B)(C)(D+E)</pre>
+</div>
 
 <form asp-action="SaveWaypoints">
     <input type="hidden" name="guid" value="@Model.GUID" />

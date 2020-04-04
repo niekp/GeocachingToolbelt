@@ -51,9 +51,10 @@ namespace GeocachingToolbelt.Utils
             {
                 var bracketOpen = 0;
 
-                for (int pos = 0; pos < Formula.Length; pos++)
+                int pos = 0;
+                while (pos < coordinate.Length)
                 {
-                    var character = Formula[pos];
+                    char character = coordinate[pos];
 
                     if (character == Convert.ToChar(letter.Key)
                         && !string.IsNullOrEmpty(letter.Value)
@@ -73,6 +74,8 @@ namespace GeocachingToolbelt.Utils
                     {
                         bracketOpen--;
                     }
+
+                    pos++;
                 }
 
             }
