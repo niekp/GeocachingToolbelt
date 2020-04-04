@@ -1,50 +1,22 @@
 ﻿(function ($) {
     class requester {
         constructor() {
-            this.controller = "formule";
+            this.controller = "/formule";
+            this.guid = $("[data-id='guid']").val();
         }
-        GetLetters(formula, callback) {
-            $.post(this.controller + "/GetLetters", { Formula: formula }, callback, 'json');
-        }
-        SolveFormula(formula, letters, callback) {
+        SolveFormula(formula, letters, callback){ 
             if (Object.keys(letters).length)
-                $.post(this.controller + "/SolveFormula", { Formula: formula, Letters: letters }, callback);
+                $.post(this.controller + "/SolveFormula", { Guid: this.guid, Formula: formula, Letters: letters }, callback);
         }
     }
 
     var r = new requester();
 
     $(document).ready(function () {
-        loadFormula();
-        $("[data-id='formula']").on('keyup', setup);
+        $("[data-id='waypoint']").on('change', calculate);
+        $("[data-variable]").on('keyup', calculate);
+        calculate();
     });
-
-    var setup = function () {
-        let formula = $("[data-id='formula']").val(),
-            $result = $("[data-id='result']");
-
-        $result.children().remove();
-        r.GetLetters(formula, function (variables) {
-            variables.forEach(function (variable) {
-                if (!variable.length) {
-                    return;
-                }
-
-                $("<tr>" +
-                    "<td>" +
-                    variable +
-                    "</td>" +
-                    "<td><input type='text' data-variable='" + variable + "' class='form-input' /></td>" +
-                    "</tr > ").appendTo($result);
-            });
-
-            $("[data-id='result-container']").toggle(variables.length > 0);
-            $("[data-variable]").on('keyup', calculate);
-            loadLetters();
-            calculate();
-        });
-
-    };
 
     var GetLetterValues = function() {
         var letters = {};
@@ -57,56 +29,15 @@
     }
 
     var calculate = function () {
-        let formula = $("[data-id='formula']").val(),
+        let formula = $("[data-id='waypoint'] option:selected").val(),
             letters = GetLetterValues();
-
-        save();
+        console.log(formula);
 
         r.SolveFormula(formula, letters, function (coord) {
             console.log(coord)
-            $('[data-id="coordinate-result"]').val(coord);
+            $('[data-id="coordinate-result"]').text(coord);
         });
 
     };
-
-    var save = function () {
-        var rawData = localStorage.getItem("formula");
-        var data = {
-            formula: "",
-            letters: {}
-        };
-
-        if (rawData) {
-            var data = JSON.parse(rawData);
-        }
-
-        data.formula = $("[data-id='formula']").val();
-        data.letters = { ...data.letters, ...GetLetterValues()}
-
-        localStorage.setItem("formula", JSON.stringify(data));
-    }
-
-    var loadFormula = function () {
-        var rawData = localStorage.getItem("formula");
-        if (!rawData) {
-            return;
-        }
-
-        var data = JSON.parse(rawData);
-        $("[data-id='formula']").val(data.formula).change();
-    }
-
-    var loadLetters = function() {
-        var rawData = localStorage.getItem("formula");
-        if (!rawData) {
-            return;
-        }
-        var data = JSON.parse(rawData);
-        try {
-            Object.keys(data.letters).forEach(function (letter) {
-                $("[data-variable='" + letter + "']").val(data.letters[letter]);
-            });
-        } catch (e) { };
-    }
 
 })(jQuery);
