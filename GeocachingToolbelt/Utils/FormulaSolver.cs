@@ -54,7 +54,7 @@ namespace GeocachingToolbelt.Utils
                 int pos = 0;
                 while (pos < coordinate.Length)
                 {
-                    char character = coordinate[pos];
+                    var character = coordinate[pos];
 
                     if (character == Convert.ToChar(letter.Key)
                         && !string.IsNullOrEmpty(letter.Value)

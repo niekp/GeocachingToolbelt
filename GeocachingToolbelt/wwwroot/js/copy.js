@@ -19,8 +19,16 @@
 
         var data = "";
         $result.find("tr").each(function () {
-            let $tds = $(this).find("td");
-            data += $tds.eq(0).html() + "\t\t" + $tds.eq(index).html() + "\n";
+            let $tds = $(this).find("td"),
+                $column = $tds.eq(index),
+                content = "";
+
+            if ($column.find("input").length) {
+                content = $column.find("input").val();
+            } else {
+                content = $column.html();
+            }
+            data += $tds.eq(0).html() + "\t\t" + content + "\n";
         });
 
         copyToClipboard(data);

@@ -106,7 +106,7 @@ namespace GeocachingToolbelt.Controllers
 
         [HttpPost]
         [Route("SolveFormula")]
-        public string SolveFormula(string Guid, string Formula, Dictionary<string, string> Letters = null)
+        public IActionResult SolveFormula(string Guid, string Formula, Dictionary<string, string> Letters = null)
         {
             var multi = GetMulti(Guid);
             if (multi is Multi)
@@ -135,7 +135,26 @@ namespace GeocachingToolbelt.Controllers
                 db.SaveChanges();
             }
 
-            return formulaSolver.SolveFormula(Formula, Letters);
+            var solved = formulaSolver.SolveFormula(Formula, Letters);
+
+            var result = new List<FormulaResult>();
+            Coordinate coordinate = null;
+
+            try
+            {
+                coordinate = new Coordinate(solved);
+            } catch (ArgumentException) { }
+
+            result.Add(new FormulaResult()
+            {
+                Result = solved,
+                Latitude = coordinate?.Latitude,
+                Longitude = coordinate?.Longitude,
+                WSG = coordinate?.GetWSG84()
+            });
+
+
+            return Json(result);
         }
 
 
