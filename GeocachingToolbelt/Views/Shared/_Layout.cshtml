@@ -44,6 +44,9 @@
                 <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Gpx" ? "active" : "")">
                     @Html.ActionLink("Lijst delen", "Index", "Gpx", null, new { @class = "nav-link" })
                 </li>
+                <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Formula" ? "active" : "")">
+                    @Html.ActionLink("Coordinaat formules", "Index", "Formula", null, new { @class = "nav-link" })
+                </li>
 
             </ul>
         </div>

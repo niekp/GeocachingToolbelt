@@ -3,6 +3,7 @@
     $(document).ready(function () {
         $("td [data-trigger='copy']").on('click', copyCell);
         $("th [data-trigger='copy']").on('click', copyColumn);
+        $("[data-copy][data-trigger='copy']").on('click', copyId);
         $("[data-trigger='copy-current-url']").on('click', copyUrl);
     });
 
@@ -28,6 +29,10 @@
     function copyUrl() {
         copyToClipboard(window.location.href);
         alert("De link is gekopieerd.");
+    }
+
+    function copyId(event) {
+        copyToClipboard($("[data-id='" + $(event.currentTarget).data("copy") + "']").text());
     }
 
     const copyToClipboard = str => {

@@ -1,0 +1,18 @@
+﻿@model Multi
+@{
+    ViewBag.Title = "Coordinaat formule";
+    ViewBag.Description = "Bereken een coordinaat met variabele gegevens.";
+}
+<h1>@Model.Name</h1>
+
+<form asp-action="SaveWaypoints">
+    <input type="hidden" name="guid" value="@Model.GUID" />
+
+    <div class="form-group">
+        <label for="waypoints">Waypoints</label>
+        <textarea class="form-control" name="waypoints" id="waypoints" rows="4" aria-describedby="coordHelp">@string.Join(Environment.NewLine, Model.Waypoints.Select(wp => wp.Coordinate))</textarea>
+        <small id="coordHelp" class="form-text text-muted">1 waypoint per regel</small>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Waypoints opslaan</button>
+</form>

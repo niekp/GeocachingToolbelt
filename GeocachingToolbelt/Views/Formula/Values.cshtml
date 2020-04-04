@@ -1,0 +1,61 @@
+﻿@model Multi
+@{
+    ViewBag.Title = "Coordinaat formule";
+    ViewBag.Description = "Bereken een coordinaat met variabele gegevens.";
+}
+<h1>@Model.Name</h1>
+<a href="javascript:;" class="btn btn-primary" data-trigger="copy-current-url">Kopieer deelbare link voor onderweg</a>
+
+<input type="hidden" name="guid" data-id="guid" value="@Model.GUID" />
+
+<div class="form-group row">
+    <label for="coords" class="col-sm-2 col-form-label">Waypoint</label>
+    <div class="col-sm-10">
+        <select data-id="waypoint" class="form-control">
+            @foreach (var wp in Model.Waypoints.OrderBy(wp => wp.Number).ToList())
+            {
+                <option value="@wp.Coordinate">@string.Format("WP{0}: {1}", wp.Number, wp.Coordinate)</option>
+            }
+        </select>
+        @Html.ActionLink("Wijzig waypoints", "Waypoints", "Formula", new { Model.GUID })
+    </div>
+</div>
+
+<div class="form-group row">
+    <label for="coords" class="col-sm-2 col-form-label">Resultaat</label>
+    <div class="col-sm-10">
+        <span data-id="coordinate-result"></span>&nbsp;
+        <img src="~/images/copy.png" alt="copy" title="Kopieer" data-trigger="copy" data-copy="coordinate-result" />
+    </div>
+</div>
+
+<div data-id="result-container" class="table-responsive" style="display: block;">
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width:300px;">Variabele</th>
+                <th>Antwoord</th>
+            </tr>
+        </thead>
+        <tbody data-id="result">
+            @foreach (var letter in Model.GetLettersFromWaypoints())
+            {
+                <tr>
+                    <td>@letter</td>
+                    <td>
+                        <input type='text'
+                               data-variable="@letter"
+                               value="@(Model.Variables.Where(v => v.Letter == letter.ToString())
+                                    .FirstOrDefault()?.Value ?? "")"
+                               class='form-input' />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="~/js/copy.js" asp-append-version="true"></script>
+    <script src="~/js/formula.js" asp-append-version="true"></script>
+}
