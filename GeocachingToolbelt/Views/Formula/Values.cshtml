@@ -35,7 +35,7 @@
         <thead>
             <tr>
                 <th style="width:300px;">Variabele</th>
-                <th>Antwoord</th>
+                <th>Antwoord <img src="~/images/copy.png" alt="copy" title="Kopieer" data-trigger="copy" /></th>
             </tr>
         </thead>
         <tbody data-id="result">
@@ -44,7 +44,7 @@
                 <tr>
                     <td>@letter</td>
                     <td>
-                        <input type='text'
+                        <input type='number'
                                data-variable="@letter"
                                value="@(Model.Variables.Where(v => v.Letter == letter.ToString())
                                     .FirstOrDefault()?.Value ?? "")"
@@ -55,6 +55,8 @@
         </tbody>
     </table>
 </div>
+
+<partial name="~/Views/Shared/_MapPartial.cshtml" model="new MapData()" />
 
 @section Scripts {
     <script src="~/js/copy.js" asp-append-version="true"></script>

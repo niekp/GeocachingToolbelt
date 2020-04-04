@@ -35,43 +35,56 @@
         defaultLayers.vector.normal.map,
     );
 
-    // Add coords
-    var group = new H.map.Group();
+    function addCoordsToMap() {
+        var group = new H.map.Group();
+        var coords = document.querySelectorAll("[data-container='coordinates'] coord");
+        var setZoomlevel = coords.length == 1;
+        map.removeObjects(map.getObjects())
 
-    document.querySelectorAll("[data-container='coordinates'] coord").forEach(coord => {
-        var latitude = parseFloat(coord.dataset.lat);
-        var longitude = parseFloat(coord.dataset.long);
-        var radius = parseFloat(coord.dataset.radius);
-        coords = { lat: latitude, lng: longitude };
-        var pngIcon = new H.map.Icon("/images/marker-" + (coord.dataset.color != undefined ? coord.dataset.color : "blue") + ".png");
-        
-	    var marker = new H.map.Marker({
-		    lat: latitude,
-            lng: longitude
-        }, { icon: pngIcon });
+        coords.forEach(coord => {
+            var latitude = parseFloat(coord.dataset.lat);
+            var longitude = parseFloat(coord.dataset.long);
+            var radius = parseFloat(coord.dataset.radius);
+            var pngIcon = new H.map.Icon("/images/marker-" + (coord.dataset.color != undefined ? coord.dataset.color : "blue") + ".png");
 
-        if (radius) {
-            marker = new H.map.Circle(
-                { lat: latitude, lng: longitude },
-                radius,
-                {
-                    style: {
-                        strokeColor: 'rgba(55, 85, 170, 0.6)', // Color of the perimeter
-                        lineWidth: 2,
-                        fillColor: 'rgba(0, 128, 0, 0.3)'  // Color of the circle
+            var marker = new H.map.Marker({
+                lat: latitude,
+                lng: longitude
+            }, { icon: pngIcon });
+            
+            if (radius) {
+                setZoomlevel = false;
+                marker = new H.map.Circle(
+                    { lat: latitude, lng: longitude },
+                    radius,
+                    {
+                        style: {
+                            strokeColor: 'rgba(55, 85, 170, 0.6)', // Color of the perimeter
+                            lineWidth: 2,
+                            fillColor: 'rgba(0, 128, 0, 0.3)'  // Color of the circle
+                        }
                     }
-                }
-            );
+                );
+            }
+
+            group.addObject(marker);
+        });
+
+        if (coords.length) {
+            map.addObject(group);
+            var lookdata = {
+                bounds: group.getBoundingBox()
+            }
+
+            if (setZoomlevel) {
+                lookdata["zoom"] = 17;
+            }
+
+            map.getViewModel().setLookAtData(lookdata);
         }
+    }
 
-        group.addObject(marker);
-    });
-
-    map.addObject(group);
-
-    map.getViewModel().setLookAtData({
-        bounds: group.getBoundingBox()
-    });
+    addCoordsToMap();
 
     var ui = H.ui.UI.createDefault(map, defaultLayers);
     var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));

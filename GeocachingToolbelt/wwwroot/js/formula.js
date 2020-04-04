@@ -6,7 +6,7 @@
         }
         SolveFormula(formula, letters, callback){ 
             if (Object.keys(letters).length)
-                $.post(this.controller + "/SolveFormula", { Guid: this.guid, Formula: formula, Letters: letters }, callback);
+                $.post(this.controller + "/SolveFormula", { Guid: this.guid, Formula: formula, Letters: letters }, callback, 'json');
         }
     }
 
@@ -33,9 +33,22 @@
             letters = GetLetterValues();
         console.log(formula);
 
-        r.SolveFormula(formula, letters, function (coord) {
-            console.log(coord)
-            $('[data-id="coordinate-result"]').text(coord);
+        r.SolveFormula(formula, letters, function (coords) {
+            $('[data-id="coordinate-result"]').text("");
+            if (!coords) {
+                return;
+            }
+
+            $("[data-container='coordinates']").children().remove();
+            coords.forEach(function (coord) {
+                if (coord.latitude) {
+                    $("[data-container='coordinates']").append("<coord data-lat='" + coord.latitude + "' data-long='" + coord.longitude + "' />");
+                }
+
+                $('[data-id="coordinate-result"]').append("<span class='" + (coord.latitude ? "valid" : "invalid") + "'>" + coord.result + "</span>");
+            });
+            addCoordsToMap();
+            
         });
 
     };
