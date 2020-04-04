@@ -7,6 +7,7 @@
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'WordMask' ">
     <StartAction>Project</StartAction>
+    <ExternalConsole>true</ExternalConsole>
     <ApplicationURL>http://localhost:5000</ApplicationURL>
   </PropertyGroup>
   <ItemGroup>
@@ -29,10 +30,15 @@
     <Folder Include="Views\Gpx\" />
     <Folder Include="wwwroot\GPX\" />
     <Folder Include="Views\Formula\" />
+    <Folder Include="Data\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="4.3.1" />
     <PackageReference Include="Geodesy" Version="2.0.5" />
+    <PackageReference Include="CoreCLR-NCalc" Version="2.2.70" />
+    <PackageReference Include="sqlite" Version="3.13.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="3.1.3" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Models\Triangle.cs" />
