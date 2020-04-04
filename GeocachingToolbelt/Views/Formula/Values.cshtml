@@ -4,6 +4,7 @@
     ViewBag.Description = "Bereken een coordinaat met variabele gegevens.";
 }
 <h1>@Model.Name</h1>
+<a href="javascript:;" class="btn btn-primary" data-trigger="copy-current-url">Kopieer deelbare link voor onderweg</a>
 
 <input type="hidden" name="guid" data-id="guid" value="@Model.GUID" />
 
@@ -41,12 +42,12 @@
             {
                 <tr>
                     <td>@letter</td>
-                    <td><input type='text'
+                    <td>
+                        <input type='text'
                                data-variable="@letter"
-                                value="@(Model.Variables.Where(v => v.Letter == letter.ToString())
+                               value="@(Model.Variables.Where(v => v.Letter == letter.ToString())
                                     .FirstOrDefault()?.Value ?? "")"
-                                class='form-input'
-                        />
+                               class='form-input' />
                     </td>
                 </tr>
             }
@@ -55,6 +56,6 @@
 </div>
 
 @section Scripts {
-    <script src="~/js/copy.js" asp-append-version="true"></script>   
-    <script src="~/js/formula.js" asp-append-version="true"></script>   
+    <script src="~/js/copy.js" asp-append-version="true"></script>
+    <script src="~/js/formula.js" asp-append-version="true"></script>
 }
