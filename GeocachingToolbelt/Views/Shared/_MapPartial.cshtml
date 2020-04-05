@@ -1,92 +1,39 @@
 ﻿@model MapData
-<script src="https://js.api.here.com/v3/3.1/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
-<script src="https://js.api.here.com/v3/3.1/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
-<script src="https://js.api.here.com/v3/3.1/mapsjs-ui.js" type="text/javascript" charset="utf-8"></script>
-<script src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js" type="text/javascript" charset="utf-8"></script>
-<link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
-
+@{string maps = "leaflet";}
 <div style="width: 100%; height: 480px" id="mapContainer"></div>
 
 <div data-container="coordinates" style="display: none;">
     @foreach (var coord in Model.Coordinates)
     {
-        <coord data-lat="@coord.Latitude" data-long="@coord.Longitude" />
+        <coord data-lat="@coord.Latitude" data-long="@coord.Longitude" data-radius="@Model.Radius" />
     }
     @if (@Model.Hightlight != null)
     {
         <coord data-lat="@Model.Hightlight.Latitude"
                data-long="@Model.Hightlight.Longitude"
                data-color="red"
-               data-radius="@Model.Radius" />
+               data-radius="@Model.Radius"></coord>
     }
 </div>
 
-<script>
-    var platform = new H.service.Platform({
-        apikey: '085vI9e-1LGilWPe4uURCrUuWpeLEW6V9GEO5whB95Q',
-        app_id: 'QsrKH3biseeWWjfyTJgL',
-        app_code: 'hyceuC1PnpUZBZLHaHzLfA'
-    });
+@if (maps == "here")
+{
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-ui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
 
-    var defaultLayers = platform.createDefaultLayers();
+    <script src="~/js/here-maps.js" asp-append-version="true"></script>
+}
+else if (maps == "leaflet")
+{
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+            crossorigin=""></script>
 
-    var map = new H.Map(
-        document.getElementById('mapContainer'),
-        defaultLayers.vector.normal.map,
-    );
-
-    function addCoordsToMap() {
-        var group = new H.map.Group();
-        var coords = document.querySelectorAll("[data-container='coordinates'] coord");
-        var setZoomlevel = coords.length == 1;
-        map.removeObjects(map.getObjects())
-
-        coords.forEach(coord => {
-            var latitude = parseFloat(coord.dataset.lat);
-            var longitude = parseFloat(coord.dataset.long);
-            var radius = parseFloat(coord.dataset.radius);
-            var pngIcon = new H.map.Icon("/images/marker-" + (coord.dataset.color != undefined ? coord.dataset.color : "blue") + ".png");
-
-            var marker = new H.map.Marker({
-                lat: latitude,
-                lng: longitude
-            }, { icon: pngIcon });
-            
-            if (radius) {
-                setZoomlevel = false;
-                marker = new H.map.Circle(
-                    { lat: latitude, lng: longitude },
-                    radius,
-                    {
-                        style: {
-                            strokeColor: 'rgba(55, 85, 170, 0.6)', // Color of the perimeter
-                            lineWidth: 2,
-                            fillColor: 'rgba(0, 128, 0, 0.3)'  // Color of the circle
-                        }
-                    }
-                );
-            }
-
-            group.addObject(marker);
-        });
-
-        if (coords.length) {
-            map.addObject(group);
-            var lookdata = {
-                bounds: group.getBoundingBox()
-            }
-
-            if (setZoomlevel) {
-                lookdata["zoom"] = 17;
-            }
-
-            map.getViewModel().setLookAtData(lookdata);
-        }
-    }
-
-    addCoordsToMap();
-
-    var ui = H.ui.UI.createDefault(map, defaultLayers);
-    var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
-
-</script>
+    <script src="~/js/leaflet-maps.js" asp-append-version="true"></script>
+}

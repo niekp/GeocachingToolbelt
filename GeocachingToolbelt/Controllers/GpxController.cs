@@ -58,9 +58,10 @@ namespace GeocachingToolbelt.Controllers
             return RedirectToAction("index");
         }
 
-        private List<Geocache> GetGeocaches(string guid)
+        private List<Geocache> GetGeocaches(string guid, int? radius = null)
         {
             var caches = new List<Geocache>();
+            ViewBag.Radius = radius;
 
             XmlDocument gpxDoc = new XmlDocument();
             gpxDoc.Load(GetFilename(guid));

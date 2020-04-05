@@ -42,7 +42,7 @@
             $("[data-container='coordinates']").children().remove();
             coords.forEach(function (coord) {
                 if (coord.latitude) {
-                    $("[data-container='coordinates']").append("<coord data-lat='" + coord.latitude + "' data-long='" + coord.longitude + "' />");
+                    $("[data-container='coordinates']").append("<coord data-lat='" + coord.latitude + "' data-long='" + coord.longitude + "'></coord>");
                 }
 
                 $('[data-id="coordinate-result"]').append("<span class='" + (coord.latitude ? "valid" : "invalid") + "'>" + coord.result + "</span>");

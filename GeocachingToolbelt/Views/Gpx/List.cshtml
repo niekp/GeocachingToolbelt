@@ -8,6 +8,15 @@
 <a href="javascript:;" class="btn btn-primary" data-trigger="copy-current-url">Kopieer deelbare link</a>
 <a asp-action="Index" class="btn btn-primary">Upload een nieuwe lijst</a>
 
+@{
+    var data = new MapData();
+    data.Coordinates = Model.Select(m => m.Coordinate).ToList();
+}
+
+<div class="mt-3">
+    <partial name="~/Views/Shared/_MapPartial.cshtml" model="data" />
+    <button type="button" data-draw-radius="161" class="btn btn-primary mt-3">Toon/verberg cirkels</button>
+</div>
 <div class="table-responsive mt-5">
     <table class="table">
         <thead>
@@ -35,4 +44,5 @@
 
 @section Scripts {
     <script src="~/js/copy.js" asp-append-version="true"></script>
+    <script src="~/js/gpx-list.js" asp-append-version="true"></script>
 }
