@@ -10,11 +10,12 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 }).addTo(map);
 
 
+var layerGroup = L.layerGroup().addTo(map);
+
 function addCoordsToMap() {
-    //var group = new H.map.Group();
     var coords = document.querySelectorAll("[data-container='coordinates'] coord");
     var setZoomlevel = coords.length == 1;
-    //map.removeObjects(map.getObjects())
+    layerGroup.clearLayers();
 
     var group = [];
     coords.forEach(coord => {
@@ -41,13 +42,18 @@ function addCoordsToMap() {
                 iconSize: [40, 40], 
             });
 
-            var marker = L.marker([latitude, longitude], { icon: myIcon});
+            var marker = L.marker([latitude, longitude], { icon: myIcon });
+
+            if (coord.dataset.title) {
+                marker.bindPopup("<strong><a href='coord.info/" + coord.dataset.gccode + "' target='_blank'>" + coord.dataset.gccode + "</a></strong><br>" + coord.dataset.title);
+            }
+
             group.push(marker);
         }
 
     });
 
-    var markerGroup = new L.featureGroup(group).addTo(map);
+    var markerGroup = new L.featureGroup(group).addTo(layerGroup);
     map.fitBounds(markerGroup.getBounds());
 }
 

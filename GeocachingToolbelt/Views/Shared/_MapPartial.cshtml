@@ -5,7 +5,11 @@
 <div data-container="coordinates" style="display: none;">
     @foreach (var coord in Model.Coordinates)
     {
-        <coord data-lat="@coord.Latitude" data-long="@coord.Longitude" data-radius="@Model.Radius" />
+        <coord data-lat="@coord.Latitude" data-long="@coord.Longitude" data-radius="@Model.Radius"></coord>
+    }
+    @foreach (var cache in Model.Geocaches)
+    {
+        <coord data-lat="@cache.Coordinate.Latitude" data-long="@cache.Coordinate.Longitude" data-title="@cache.Title" data-gccode="@cache.GCCode" data-radius="@Model.Radius"></coord>
     }
     @if (@Model.Hightlight != null)
     {
