@@ -14,29 +14,28 @@ var layerGroup = L.layerGroup().addTo(map);
 
 function addCoordsToMap() {
     var coords = document.querySelectorAll("[data-container='coordinates'] coord");
-    var setZoomlevel = coords.length == 1;
     layerGroup.clearLayers();
 
     var group = [];
     coords.forEach(coord => {
         var latitude = parseFloat(coord.dataset.lat);
         var longitude = parseFloat(coord.dataset.long);
-        var radius = parseFloat(coord.dataset.radius);
-
-        if (radius) {
+        var circle_radius = parseFloat(coord.dataset.radius);
+        
+        if (circle_radius) {
             setZoomlevel = false;
 
             var circle = L.circle([latitude, longitude], {
                 color: 'rgba(55, 85, 170)',
                 fillColor: 'rgba(0, 128, 0, 0.3)',
                 fillOpacity: 0.3,
-                radius: radius
+                radius: circle_radius
             });
 
             group.push(circle);
         }
 
-        if (!radius || coord.dataset.forcemarker == "true") {
+        if (!circle_radius || coord.dataset.forcemarker == "true") {
             myIcon = L.icon({
                 iconUrl: "/images/marker-" + (coord.dataset.color != undefined ? coord.dataset.color : "blue") + ".png",
                 iconSize: [40, 40], 
@@ -51,6 +50,7 @@ function addCoordsToMap() {
             group.push(marker);
         }
 
+        map.setView([latitude, longitude], 0);
     });
 
     var markerGroup = new L.featureGroup(group).addTo(layerGroup);
