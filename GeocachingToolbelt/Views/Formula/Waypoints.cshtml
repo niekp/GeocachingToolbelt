@@ -14,7 +14,7 @@
 
     <div class="form-group">
         <label for="waypoints">Waypoints</label>
-        <textarea class="form-control" name="waypoints" id="waypoints" rows="4" aria-describedby="coordHelp">@string.Join(Environment.NewLine, Model.Waypoints.Select(wp => wp.Coordinate))</textarea>
+        <textarea class="form-control" name="waypoints" id="waypoints" rows="4" aria-describedby="coordHelp">@string.Join(Environment.NewLine, Model.Waypoints.OrderBy(wp => wp.Number).Select(wp => wp.Coordinate))</textarea>
         <small id="coordHelp" class="form-text text-muted">1 waypoint per regel</small>
     </div>
 

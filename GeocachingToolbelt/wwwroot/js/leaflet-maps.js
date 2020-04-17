@@ -45,7 +45,7 @@ function addCoordsToMap() {
             var marker = L.marker([latitude, longitude], { icon: myIcon });
 
             if (coord.dataset.title) {
-                marker.bindPopup("<strong><a href='coord.info/" + coord.dataset.gccode + "' target='_blank'>" + coord.dataset.gccode + "</a></strong><br>" + coord.dataset.title);
+                marker.bindPopup("<strong><a href='https://coord.info/" + coord.dataset.gccode + "' target='_blank'>" + coord.dataset.gccode + "</a></strong><br>" + coord.dataset.title);
             }
 
             group.push(marker);
