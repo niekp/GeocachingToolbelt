@@ -71,7 +71,7 @@ namespace GeocachingToolbelt.Controllers
 
         [HttpPost]
         [Route("SaveWaypoints")]
-        public IActionResult SaveWaypoints(string guid, string waypoints)
+        public IActionResult SaveWaypoints(string guid, string name, string waypoints)
         {
             var multi = GetMulti(guid);
             if (!(multi is Multi))
@@ -79,6 +79,7 @@ namespace GeocachingToolbelt.Controllers
                 return RedirectToAction("Index");
             }
 
+            multi.Name = name;
             var newWaypoints = Regex.Split(Regex.Replace(waypoints, "^[,\r\n]+|[,\r\n]+$", ""), "[,\r\n]+");
 
             // Remove all waypoints and readd to lazily keep the order

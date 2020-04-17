@@ -5,16 +5,21 @@
 }
 <h1>@Model.Name</h1>
 <div class="mb-3">
-    Zet elke WP op een nieuwe regel. Zet haakjes om <strong>alle</strong> variabelen, ook al is dit een enkele letter.
-    Bijvoorbeeld: <pre>N 52 59.(A)23 E 006 33.(A*B)(C)(D+E)</pre>
+    Zet elke WP op een nieuwe regel. Zet haakjes om de sommen.
+    Bijvoorbeeld: <pre>N 52 59.A23 E 006 33.(A*B)C(D+E)</pre>
 </div>
 
 <form asp-action="SaveWaypoints">
     <input type="hidden" name="guid" value="@Model.GUID" />
 
     <div class="form-group">
+        <label for="name">Naam</label>
+        <input type="text" class="form-control" name="name" id="name" value="@Model.Name" />
+    </div>
+
+    <div class="form-group">
         <label for="waypoints">Waypoints</label>
-        <textarea class="form-control" name="waypoints" id="waypoints" rows="4" aria-describedby="coordHelp">@string.Join(Environment.NewLine, Model.Waypoints.OrderBy(wp => wp.Number).Select(wp => wp.Coordinate))</textarea>
+        <textarea class="form-control" name="waypoints" id="waypoints" rows="6" aria-describedby="coordHelp">@string.Join(Environment.NewLine, Model.Waypoints.OrderBy(wp => wp.Number).Select(wp => wp.Coordinate))</textarea>
         <small id="coordHelp" class="form-text text-muted">1 waypoint per regel</small>
     </div>
 
