@@ -15,7 +15,7 @@
         <select data-id="waypoint" class="form-control">
             @foreach (var wp in Model.Waypoints.OrderBy(wp => wp.Number).ToList())
             {
-                <option value="@wp.Coordinate">@string.Format("WP{0}: {1}", wp.Number, wp.Coordinate)</option>
+                <option value="@wp.Number">@string.Format("WP{0}: {1}", wp.Number, wp.Coordinate)</option>
             }
         </select>
         @Html.ActionLink("Wijzig waypoints", "Waypoints", "Formula", new { Model.GUID })

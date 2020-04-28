@@ -6,7 +6,7 @@
         }
         SolveFormula(formula, letters, callback){ 
             if (Object.keys(letters).length)
-                $.post(this.controller + "/SolveFormula", { Guid: this.guid, Formula: formula, Letters: letters }, callback, 'json');
+                $.post(this.controller + "/SolveFormula", { Guid: this.guid, WP: formula, Letters: letters }, callback, 'json');
         }
     }
 
@@ -31,7 +31,6 @@
     var calculate = function () {
         let formula = $("[data-id='waypoint'] option:selected").val(),
             letters = GetLetterValues();
-        console.log(formula);
 
         r.SolveFormula(formula, letters, function (coords) {
             $('[data-id="coordinate-result"]').text("");
@@ -40,13 +39,16 @@
             }
 
             $("[data-container='coordinates']").children().remove();
-            coords.forEach(function (coord) {
+            var current = coords[coords.length - 1];
+            var previous = coords.slice(0, coords.length - 1);
+            previous.forEach(function (coord) {
                 if (coord.latitude) {
                     $("[data-container='coordinates']").append("<coord data-lat='" + coord.latitude + "' data-long='" + coord.longitude + "'></coord>");
                 }
-
-                $('[data-id="coordinate-result"]').append("<span class='" + (coord.latitude ? "valid" : "invalid") + "'>" + coord.result + "</span>");
             });
+
+            $("[data-container='coordinates']").append("<coord data-lat='" + current.latitude + "' data-color='red' data-long='" + current.longitude + "'></coord>");
+            $('[data-id="coordinate-result"]').append("<span class='" + (current.latitude ? "valid" : "invalid") + "'>" + current.result + "</span>");
             addCoordsToMap();
             
         });
