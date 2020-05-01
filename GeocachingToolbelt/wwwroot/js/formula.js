@@ -41,9 +41,11 @@
             $("[data-container='coordinates']").children().remove();
             var current = coords[coords.length - 1];
             var previous = coords.slice(0, coords.length - 1);
+            var counter = 1;
             previous.forEach(function (coord) {
                 if (coord.latitude) {
-                    $("[data-container='coordinates']").append("<coord data-lat='" + coord.latitude + "' data-long='" + coord.longitude + "'></coord>");
+                    $("[data-container='coordinates']").append("<coord data-lat='" + coord.latitude + "' data-title='WP " + counter + "' data-long='" + coord.longitude + "'></coord>");
+                    counter++;
                 }
             });
 
