@@ -139,7 +139,7 @@ namespace GeocachingToolbelt.Controllers
 
             var result = new List<FormulaResult>();
 
-            foreach (var waypoint in multi.Waypoints.Where(wp => wp.Number <= WP))
+            foreach (var waypoint in multi.Waypoints.Where(wp => wp.Number <= WP).OrderBy(wp => wp.Number))
             {
                 var solved = formulaSolver.SolveFormula(waypoint.Coordinate, Letters);
 
