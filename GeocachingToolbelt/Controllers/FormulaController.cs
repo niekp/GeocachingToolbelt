@@ -28,15 +28,15 @@ namespace GeocachingToolbelt.Controllers
         }
 
         [HttpGet]
-        [Route("Waardes/{guid}")]
-        public IActionResult Values(string guid)
+        [Route("Waardes/{guid}/{wp=0}")]
+        public IActionResult Values(string guid, int wp = 0)
         {
             var multi = GetMulti(guid);
             if (!(multi is Multi))
             {
                 return RedirectToAction("Index");
             }
-
+            ViewBag.WP = wp;
             return View(multi);
         }
 
