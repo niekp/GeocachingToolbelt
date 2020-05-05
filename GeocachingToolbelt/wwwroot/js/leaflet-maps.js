@@ -1,14 +1,30 @@
-﻿var map = L.map('mapContainer');
+﻿var outdoor = L.tileLayer('https://tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey={apikey}', {
+    maxZoom: 18,
+    id: 'thunderforest/outdoors',
+    tileSize: 512,
+    zoomOffset: -1,
+    apikey: 'aded984765ad45d692db2dc42dc4188e'
+});
 
-L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+var streets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
     id: 'mapbox/streets-v11',
     tileSize: 512,
     zoomOffset: -1,
     accessToken: 'pk.eyJ1Ijoibmlla3AiLCJhIjoiY2s4bXB4ZnZzMGhxaDNvbzJnaW1wNmFjYSJ9.avy05lhHCVWjRlKXbcwLyA'
-}).addTo(map);
+});
 
+var baseMaps = {
+    "Wandelen": outdoor,
+    "Straten": streets
+};
+
+var map = L.map('mapContainer', {
+    layers: [outdoor, streets]
+});
+
+L.control.layers(baseMaps).addTo(map);
 
 var layerGroup = L.layerGroup().addTo(map);
 
