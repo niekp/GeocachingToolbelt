@@ -1,13 +1,12 @@
-﻿var outdoor = L.tileLayer('https://tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey={apikey}', {
-    maxZoom: 18,
-    id: 'thunderforest/outdoors',
+﻿var outdoor = L.tileLayer('https://tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey={apikey}', {
+    attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	maxZoom: 22,
     tileSize: 512,
     zoomOffset: -1,
     apikey: 'aded984765ad45d692db2dc42dc4188e'
 });
 
 var streets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
     id: 'mapbox/streets-v11',
     tileSize: 512,
@@ -15,13 +14,23 @@ var streets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{
     accessToken: 'pk.eyJ1Ijoibmlla3AiLCJhIjoiY2s4bXB4ZnZzMGhxaDNvbzJnaW1wNmFjYSJ9.avy05lhHCVWjRlKXbcwLyA'
 });
 
+var satelite = L.tileLayer('https://geodata.nationaalgeoregister.nl/luchtfoto/rgb/wmts/2018_ortho25/EPSG:3857/{z}/{x}/{y}.png', {
+    minZoom: 6,
+    maxZoom: 19,
+    bounds: [[50.5, 3.25], [54, 7.6]],
+    attribution: 'Kaartgegevens &copy; <a href="kadaster.nl">Kadaster</a>',
+    tileSize: 512,
+    zoomOffset: -1,
+});
+
 var baseMaps = {
+    "Straten": streets,
+    "Sateliet": satelite,
     "Wandelen": outdoor,
-    "Straten": streets
 };
 
 var map = L.map('mapContainer', {
-    layers: [outdoor, streets]
+    layers: [outdoor, streets, satelite]
 });
 
 L.control.layers(baseMaps).addTo(map);
