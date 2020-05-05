@@ -5,8 +5,7 @@
             this.guid = $("[data-id='guid']").val();
         }
         SolveFormula(formula, letters, callback){ 
-            if (Object.keys(letters).length)
-                $.post(this.controller + "/SolveFormula", { Guid: this.guid, WP: formula, Letters: letters }, callback, 'json');
+            $.post(this.controller + "/SolveFormula", { Guid: this.guid, WP: formula, Letters: letters }, callback, 'json');
         }
     }
 
@@ -20,6 +19,10 @@
 
     var GetLetterValues = function() {
         var letters = {};
+        if (!$("[data-variable]").length) {
+            return null;
+        }
+
         $("[data-variable]").each(function () {
             let letter = $(this).data('variable'),
                 value = $(this).val();
@@ -31,7 +34,7 @@
     var calculate = function () {
         let formula = $("[data-id='waypoint'] option:selected").val(),
             letters = GetLetterValues();
-
+        
         r.SolveFormula(formula, letters, function (coords) {
             $('[data-id="coordinate-result"]').text("");
             if (!coords) {

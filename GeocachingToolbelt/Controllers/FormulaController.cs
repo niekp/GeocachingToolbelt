@@ -110,7 +110,7 @@ namespace GeocachingToolbelt.Controllers
         public IActionResult SolveFormula(string Guid, int WP, Dictionary<string, string> Letters = null)
         {
             var multi = GetMulti(Guid);
-            if (multi is Multi)
+            if (multi is Multi && Letters != null)
             {
                 // Save letters
                 foreach (var letter in Letters)
@@ -141,7 +141,11 @@ namespace GeocachingToolbelt.Controllers
 
             foreach (var waypoint in multi.Waypoints.Where(wp => wp.Number <= WP).OrderBy(wp => wp.Number))
             {
-                var solved = formulaSolver.SolveFormula(waypoint.Coordinate, Letters);
+                string solved = waypoint.Coordinate;
+                if (Letters != null)
+                {
+                    solved = formulaSolver.SolveFormula(waypoint.Coordinate, Letters);
+                }
 
                 Coordinate coordinate = null;
 
