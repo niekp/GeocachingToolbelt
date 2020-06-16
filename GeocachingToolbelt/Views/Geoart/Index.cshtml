@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Geoart";
+    ViewBag.Description = "Maak een geoart vanuit een CSV";
+}
+<h1>Geoart</h1>
+<div class="mb-3">
+    Genereer een geoart op basis van een CSV bestand.
+</div>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.Error
+    </div>
+}
+
+<form method="post" class="mb-5">
+    <div class="form-group">
+        <label for="coords">CSV</label>
+        <textarea class="form-control" name="CSV" id="csv" rows="4" aria-describedby="csvHelp">@ViewBag.CSV</textarea>
+        <small id="csvHelp" class="form-text text-muted">Plak hier een puntkomma gescheiden CSV</small>
+    </div>
+
+    <div class="form-group">
+        <label for="name">Start coordinaat</label>
+        <input type="text" class="form-control" name="coord" id="coord" value="@ViewBag.Coordinate" />
+    </div>
+
+    <div class="form-group">
+        <label for="name">Afstand tussen punten</label>
+        <input type="text" class="form-control" name="distance" id="distance" value="@ViewBag.Distance" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Genereer</button>
+</form>
+
+@if (ViewBag.Coordinates is List<Coordinate>)
+{
+    var data = new MapData();
+    data.Coordinates = ViewBag.Coordinates;
+
+    <partial name="~/Views/Shared/_MapPartial.cshtml" model="data" />
+
+    <div class="table-responsive mt-5">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Coordinaten <img src="~/images/copy.png" alt="copy" title="Kopieer" data-trigger="copy" /></th>
+                </tr>
+            </thead>
+            <tbody data-id="result">
+                @{
+                int i = 1;
+
+                foreach (Coordinate coord in ViewBag.Coordinates)
+                {
+                    <tr>
+                        <td>@i</td>
+                        <td>@coord.GetWSG84()</td>
+                    </tr>
+                    i++;
+                }
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@section Scripts {
+    <script src="~/js/copy.js" asp-append-version="true"></script>
+}
