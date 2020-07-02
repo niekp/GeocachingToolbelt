@@ -2,13 +2,14 @@
 
     $(document).ready(function () {
         $("[data-id='words']").on('keyup', calculate);
-        $("[data-trigger='copy']").on('click', copyColumn);
+        $("[name='split-on']").on('change', calculate);
     });
 
     var calculate = function () {
-        let words = $("[data-id='words']").val().split("\n"),
+        let spliton = $("[name='split-on']:checked").val(),
+            words = $("[data-id='words']").val().split(spliton == "S" ? " " : "\n"),
             $result = $("[data-id='result']");
-
+        console.log(spliton)
         $("[data-id='result-container']").toggle(words.length > 0);
 
         $result.children().remove();

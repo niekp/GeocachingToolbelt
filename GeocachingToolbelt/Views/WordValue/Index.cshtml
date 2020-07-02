@@ -10,7 +10,15 @@
 <div class="form-group">
     <label for="coords">Woorden</label>
     <textarea class="form-control" name="words" data-id="words" rows="6" aria-describedby="wordsHelp"></textarea>
-    <small id="wordsHelp" class="form-text text-muted">1 woord per regel</small>
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <label for="location" class="col-sm-2 col-form-label">Split op</label>
+            <input type="radio" name="split-on" id="split-on-w" value="W" checked="checked" />
+            <label for="split-on-w">Enter</label>&nbsp;&nbsp;
+            <input type="radio" name="split-on" id="split-on-s" value="S" />
+            <label for="split-on-s">Spatie</label>
+        </div>
+    </div>
 </div>
 
 <div data-id="result-container" class="table-responsive">
