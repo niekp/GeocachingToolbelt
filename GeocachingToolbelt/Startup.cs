@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace GeocachingToolbelt
 {
@@ -63,7 +64,13 @@ namespace GeocachingToolbelt
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+			var cultureInfo = new CultureInfo("en-US");
+			cultureInfo.NumberFormat.CurrencySymbol = "€";
+
+			CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+			CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
+			app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
