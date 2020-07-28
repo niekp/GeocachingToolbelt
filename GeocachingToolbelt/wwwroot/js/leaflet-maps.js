@@ -85,6 +85,10 @@ function addCoordsToMap() {
 
     var markerGroup = new L.featureGroup(group).addTo(layerGroup);
     map.fitBounds(markerGroup.getBounds());
+
+    if (coords.length == 1 && !circle_radius) {
+        map.setZoom(17);
+    }
 }
 
 addCoordsToMap();
