@@ -101,7 +101,9 @@ function addCoordsToMap() {
     var markerGroup = new L.featureGroup(group).addTo(layerGroup);
     map.fitBounds(markerGroup.getBounds());
 
-    var polyline = L.polyline(line, { color: 'red' }).addTo(map);
+    if (line.length) {
+        var polyline = L.polyline(line, { color: 'red' }).addTo(map);
+    }
 
     if (coords.length == 1 && !parseFloat(coords[0].dataset.radius)) {
         map.setZoom(17);

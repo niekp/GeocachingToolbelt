@@ -17,6 +17,7 @@
   <ItemGroup>
     <Content Remove="Views\Home\Privacy.cshtml" />
     <Content Remove="Views\WordMask\Privacy.cshtml" />
+    <Content Remove="wwwroot\images\scrabble.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Home\" />

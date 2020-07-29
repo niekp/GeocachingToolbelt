@@ -1,11 +1,11 @@
 ﻿@{
     ViewBag.Title = "Geometrisch zwaartepunt";
-    ViewBag.Description = "Bereken het geometrische zwaartepunt van een coordinaten";
+    ViewBag.Description = "Bereken het geometrische zwaartepunt van een coördinaten";
 }
 <h1>Geometrisch zwaartepunt</h1>
 <div class="mb-3">
-    Bereken het geometrische zwaartepunt (middenpunt) van een aantal coordinaten.<br />
-    Door 3 coordinaten in te voeren bereken je bijvoorbeeld het zwaartepunt van een driehoek.
+    Bereken het geometrische zwaartepunt (middenpunt) van een aantal coördinaten.<br />
+    Door 3 coördinaten in te voeren bereken je bijvoorbeeld het zwaartepunt van een driehoek.
 </div>
 
 @if (ViewBag.Error != null)
@@ -17,7 +17,7 @@
 
 <form method="post">
     <div class="form-group">
-        <label for="coords">Coordinaten</label>
+        <label for="coords">Coördinaten</label>
         <textarea class="form-control" name="coords" id="coords" rows="4" aria-describedby="coordHelp">@ViewBag.Coords</textarea>
         <small id="coordHelp" class="form-text text-muted">1 coordinaat per regel<br />WSG84 of decimaal formaat</small>
     </div>

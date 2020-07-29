@@ -26,23 +26,27 @@
                 <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Home" ? "active" : "")">
                     @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
                 </li>
+
+                <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Projection" ? "active" : "")">
+                    @Html.ActionLink("Projecteren", "Index", "Projection", null, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "BogusProjection" ? "active" : "")">
+                    @Html.ActionLink("Bogus projectie", "Index", "BogusProjection", null, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Geocode" ? "active" : "")">
+                    @Html.ActionLink("Adres coordinaat", "Index", "Geocode", null, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Centroid" ? "active" : "")">
+                    @Html.ActionLink("Zwaartepunt", "Index", "Centroid", null, new { @class = "nav-link" })
+                </li>
                 <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "WordValue" ? "active" : "")">
                     @Html.ActionLink("Woordwaarde", "Index", "WordValue", null, new { @class = "nav-link" })
                 </li>
                 <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "WordMask" ? "active" : "")">
                     @Html.ActionLink("Woordenboek filter", "Index", "WordMask", null, new { @class = "nav-link" })
                 </li>
-                <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Centroid" ? "active" : "")">
-                    @Html.ActionLink("Zwaartepunt", "Index", "Centroid", null, new { @class = "nav-link" })
-                </li>
                 <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Resistance" ? "active" : "")">
                     @Html.ActionLink("Weerstand codes", "Index", "Resistance", null, new { @class = "nav-link" })
-                </li>
-                <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Projection" ? "active" : "")">
-                    @Html.ActionLink("Projecteren", "Index", "Projection", null, new { @class = "nav-link" })
-                </li>
-                <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "BogusProjection" ? "active" : "")">
-                    @Html.ActionLink("Bogus projectie", "Index", "BogusProjection", null, new { @class = "nav-link" })
                 </li>
                 <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Gpx" ? "active" : "")">
                     @Html.ActionLink("Lijst delen", "Index", "Gpx", null, new { @class = "nav-link" })
@@ -50,10 +54,6 @@
                 <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Formula" ? "active" : "")">
                     @Html.ActionLink("Coordinaat formules", "Index", "Formula", null, new { @class = "nav-link" })
                 </li>
-                <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Geocode" ? "active" : "")">
-                    @Html.ActionLink("Adres coordinaat", "Index", "Geocode", null, new { @class = "nav-link" })
-                </li>
-
             </ul>
         </div>
     </nav>

@@ -2,134 +2,79 @@
     ViewBag.Title = "Home";
 }
 <h1>Geocaching toolbelt</h1>
+
+<h3>Coördinaten</h3>
 <div class="row mt-3 internal-tools">
-    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 d-flex align-items-stretch">
-        <div class="card mb-3 w-100">
-            <img src="~/images/scrabble.jpg" class="card-img-top" alt="woordwaarde">
-            <div class="card-body">
-                <h5 class="card-title">Woordwaarde</h5>
-                <p class="card-text">
-                    Bereken de woordwaarde van 1 of meerdere woorden via een aantal methodes tegelijkertijd, waaronder stapeltellen.
-                </p>
+    <partial name="_ToolPartial" model='new Tool(
+        "Projecteren",
+        "Projecteer een coördinaat een bepaalde hoek en afstand.",
+        "/images/projectie.jpg",
+        "Projection")' />
 
-                @Html.ActionLink("", "Index", "WordValue", null, new { @class = "btn btn-link stretched-link" })
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 d-flex align-items-stretch">
-        <div class="card mb-3 w-100">
-            <img src="~/images/woordenboek.jpg" class="card-img-top" alt="woordenboek">
-            <div class="card-body">
-                <h5 class="card-title">Woordenboek filter</h5>
-                <p class="card-text">
-                    Filter het woordenboek op basis van een masker.
-                    Kan gebruikt worden om een substitutie cypher op te lossen.
-                </p>
+    <partial name="_ToolPartial" model='new Tool(
+        "Bogus projectie",
+        "Projecteer een 2 mile cirkel om het bogus coordinaat en vind de range waarin je moet puzzelen.",
+        "/images/bogusprojectie.png",
+        "Projection")' />
 
-                @Html.ActionLink("", "Index", "WordMask", null, new { @class = "btn btn-link stretched-link" })
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 d-flex align-items-stretch">
-        <div class="card mb-3 w-100">
-            <img src="~/images/Centroid_1000.gif" class="card-img-top" alt="zwaartepunt">
-            <div class="card-body">
-                <h5 class="card-title">Zwaartepunt berekenen</h5>
-                <p class="card-text">
-                    Bereken het geometrisch zwaartepunt van coordinaten om bijvoorbeeld het midden van een driehoek te bepalen.
-                </p>
 
-                @Html.ActionLink("", "Index", "Centroid", null, new { @class = "btn btn-link stretched-link" })
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 d-flex align-items-stretch">
-        <div class="card mb-3 w-100">
-            <img src="~/images/weerstand.jpg" class="card-img-top" alt="weerstand">
-            <div class="card-body">
-                <h5 class="card-title">Weerstand codes</h5>
-                <p class="card-text">
-                    Bereken de weerstand codes van 1 of meerdere kleuren tegelijkertijd.
-                </p>
+    <partial name="_ToolPartial" model='new Tool(
+        "Coördinaten van een adres",
+        "Zoek de coördinaten van een adres en elk punt op de kaart op.",
+        "/images/mailbox.jpg",
+        "Geocode")' />
 
-                @Html.ActionLink("", "Index", "Resistance", null, new { @class = "btn btn-link stretched-link" })
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 d-flex align-items-stretch">
-        <div class="card mb-3 w-100">
-            <img src="~/images/projectie.jpg" class="card-img-top" alt="bogus">
-            <div class="card-body">
-                <h5 class="card-title">Projecteren</h5>
-                <p class="card-text">
-                    Projecteer een coördinaat een bepaalde hoek en afstand.
-                </p>
+    <partial name="_ToolPartial" model='new Tool(
+        "Zwaartepunt berekenen",
+        "Bereken het geometrisch zwaartepunt van coördinaten om bijvoorbeeld het midden van een driehoek te bepalen.",
+        "/images/Centroid_1000.gif",
+        "Centroid")' />
 
-                @Html.ActionLink("", "Index", "Projection", null, new { @class = "btn btn-link stretched-link" })
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 d-flex align-items-stretch">
-        <div class="card mb-3 w-100">
-            <img src="~/images/bogusprojectie.png" class="card-img-top" alt="bogus">
-            <div class="card-body">
-                <h5 class="card-title">Bogus projectie</h5>
-                <p class="card-text">
-                    Projecteer een 2 mile cirkel om het bogus coordinaat en vind de range waarin je moet puzzelen.
-                </p>
-
-                @Html.ActionLink("", "Index", "BogusProjection", null, new { @class = "btn btn-link stretched-link" })
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 d-flex align-items-stretch">
-        <div class="card mb-3 w-100">
-            <img src="~/images/list.jpg" class="card-img-top" alt="lijst">
-            <div class="card-body">
-                <h5 class="card-title">Deel een lijst</h5>
-                <p class="card-text">
-                    Deel een lijst met gecorrigeerde coordinaten met anderen.
-                </p>
-
-                @Html.ActionLink("", "Index", "Gpx", null, new { @class = "btn btn-link stretched-link" })
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 d-flex align-items-stretch">
-        <div class="card mb-3 w-100">
-            <img src="~/images/multi.jpg" class="card-img-top" alt="lijst">
-            <div class="card-body">
-                <h5 class="card-title">Coordinaat met letters</h5>
-                <p class="card-text">
-                    Voeg alle WP's van een multi-cache inclusief formules toe.
-                    Vul tijdens het lopen de letters en kopieer de berekende coordinaten.
-                </p>
-
-                @Html.ActionLink("", "Index", "Formula", null, new { @class = "btn btn-link stretched-link" })
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 d-flex align-items-stretch">
-        <div class="card mb-3 w-100">
-            <img src="~/images/mailbox.jpg" class="card-img-top" alt="lijst">
-            <div class="card-body">
-                <h5 class="card-title">Coördinaten van een adres</h5>
-                <p class="card-text">
-                    Zoek de coördinaten van een adres en elk punt op de kaart op.
-                </p>
-
-                @Html.ActionLink("", "Index", "Geocode", null, new { @class = "btn btn-link stretched-link" })
-            </div>
-        </div>
-    </div>
 </div>
+
+<h3>Tekst</h3>
+<div class="row mt-3 internal-tools">
+    <partial name="_ToolPartial" model='new Tool(
+        "Woordwaarde",
+        "Bereken de woordwaarde van 1 of meerdere woorden via een aantal methodes tegelijkertijd, waaronder stapeltellen.",
+        "/images/scrabble.jpg",
+        "WordValue")' />
+
+    <partial name="_ToolPartial" model='new Tool(
+        "Woordenboek",
+        "Filter het woordenboek op basis van een masker. Kan gebruikt worden om een substitutie cypher op te lossen.",
+        "/images/woordenboek.jpg",
+        "WordMask")' />
+
+    <partial name="_ToolPartial" model='new Tool(
+        "Weerstand codes",
+        "Bereken de weerstand codes van 1 of meerdere kleuren tegelijkertijd.",
+        "/images/weerstand.jpg",
+        "Resistance")' />
+</div>
+
+<h3>Op pad</h3>
+<div class="row mt-3 internal-tools">
+    <partial name="_ToolPartial" model='new Tool(
+    "Deel een lijst",
+    "Deel een lijst met gecorrigeerde coördinaten met anderen.",
+    "/images/list.jpg",
+    "Gpx")' />
+
+    <partial name="_ToolPartial" model='new Tool(
+    "Coordinaat met letters",
+    "Voeg alle WPs van een multi-cache inclusief formules toe. Vul tijdens het lopen de letters en kopieer de berekende coördinaten.",
+    "/images/multi.jpg",
+    "Formula")' />
+</div>
+
 
 <h1>Externe tools</h1>
 <div class="row mt-3">
-    
+
     <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 d-flex align-items-stretch">
         <div class="card mb-3 w-100">
-            <img src="~/images/logoGeocachingtoolbox.png" class="card-img-top" alt="geocaching toolbox">
+            <img src="/images/logoGeocachingtoolbox.png" class="card-img-top" alt="geocaching toolbox">
             <div class="card-body">
                 <h5 class="card-title">Geocaching toolbox</h5>
                 <p class="card-text">
@@ -140,10 +85,10 @@
             </div>
         </div>
     </div>
-    
+
     <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 d-flex align-items-stretch">
         <div class="card mb-3 w-100">
-            <img src="~/images/stapeltellen_icon.png" class="card-img-top" alt="stapeltellen">
+            <img src="/images/stapeltellen_icon.png" class="card-img-top" alt="stapeltellen">
             <div class="card-body">
                 <h5 class="card-title">Stapeltellen</h5>
                 <p class="card-text">
@@ -157,12 +102,12 @@
 
     <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 d-flex align-items-stretch">
         <div class="card mb-3 w-100">
-    
-            <img src="~/images/gpscoordinaten.png" class="card-img-top" alt="gpscoordinaten">
+
+            <img src="/images/gpscoordinaten.png" class="card-img-top" alt="gpscoordinaten">
             <div class="card-body">
                 <h5 class="card-title">GPScoordinaten.nl</h5>
                 <p class="card-text">
-                    Converteer coordinaten tussen RD, decimalen, UTM, graden, graden minuten en graden minuten seconden
+                    Converteer coördinaten tussen RD, decimalen, UTM, graden, graden minuten en graden minuten seconden
                 </p>
 
                 <a href="https://www.gpscoordinaten.nl/converteer-rd-coordinaten.php" class="btn btn-link stretched-link" target="_blank" rel="noopener noreferrer"></a>
@@ -172,8 +117,8 @@
 
     <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 d-flex align-items-stretch">
         <div class="card mb-3 w-100">
-    
-            <img src="~/images/projectgc.jpg" class="card-img-top" style="object-fit: contain;" alt="project gc">
+
+            <img src="/images/projectgc.jpg" class="card-img-top" style="object-fit: contain;" alt="project gc">
             <div class="card-body">
                 <h5 class="card-title">Project GC</h5>
                 <p class="card-text">
