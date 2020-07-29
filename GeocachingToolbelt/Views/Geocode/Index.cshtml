@@ -1,18 +1,19 @@
 ﻿@{
 	ViewBag.Title = "Coördinaten van een adres";
-	ViewBag.Description = "Zoek de coördinaten van een adres op.";
+	ViewBag.Description = "Zoek de coördinaten van een adres en elk punt op de kaart op.";
 }
 <h1>Coördinaten van een adres</h1>
 <div class="mb-3">
-    Zoek de coördinaten van een adres op.
+    Zoek de coördinaten van een adres op door gebruik te maken van het zoekveld.<br />
+    Versleep hierna de marker naar de precieze locatie waarvan je de coördinaten wilt weten.
 </div>
 
 
 <form method="post">
 	<div class="form-group">
-		<label for="address">Adres</label>
+		<label for="address">Zoekopdracht</label>
 		<input type="text" class="form-control" name="Zoek" id="address" aria-describedby="addressHelp" value="@ViewBag.Zoek" />
-		<small id="addressHelp" class="form-text text-muted">Inclusief plaats</small>
+		<small id="addressHelp" class="form-text text-muted">Straat, plaats, land</small>
 	</div>
 
 	<button type="submit" class="btn btn-primary">Zoeken</button>

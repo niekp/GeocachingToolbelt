@@ -1,28 +1,33 @@
 ﻿@model Coordinate
-<div class="form-group row">
-    <label for="wsgResult" class="col-sm-2 col-form-label">WSG84</label>
-    <div class="col-sm-10">
-        <input type="text" readonly class="form-control-plaintext" id="wsgResult" value="@Model.GetWSG84()">
+@{
+    Layout = null;
+}
+<div data-id="_CoordinatePartial">
+    <div class="form-group row">
+        <label for="wsgResult" class="col-sm-2 col-form-label">WSG84</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="wsgResult" value="@Model.GetWSG84()">
+        </div>
     </div>
-</div>
 
-<div class="form-group row">
-    <label for="decimalResult" class="col-sm-2 col-form-label">Decimaal</label>
-    <div class="col-sm-10">
-        <input type="text" readonly class="form-control-plaintext" id="decimalResult" value="@Model.GetDecimal()">
+    <div class="form-group row">
+        <label for="decimalResult" class="col-sm-2 col-form-label">Decimaal</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="decimalResult" value="@Model.GetDecimal()">
+        </div>
     </div>
-</div>
-                
-<div class="form-group row">
-    <label for="RDResult" class="col-sm-2 col-form-label">RD</label>
-    <div class="col-sm-10">
-        <input type="text" readonly class="form-control-plaintext" id="RDResult" value="@Model.GetRD().X, @Model.GetRD().Y">
-    </div>
-</div>
 
-<div class="form-group row">
-    <label for="UTMResult" class="col-sm-2 col-form-label">UTM</label>
-    <div class="col-sm-10">
-        <input type="text" readonly class="form-control-plaintext" id="UTMResult" value="@Model.GetUTM().Grid @Math.Round(Model.GetUTM().X) @Math.Round(Model.GetUTM().Y)">
+    <div class="form-group row">
+        <label for="RDResult" class="col-sm-2 col-form-label">RD</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="RDResult" value="@Model.GetRD().X, @Model.GetRD().Y">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="UTMResult" class="col-sm-2 col-form-label">UTM</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="UTMResult" value="@Model.GetUTM().Grid @Math.Round(Model.GetUTM().X) @Math.Round(Model.GetUTM().Y)">
+        </div>
     </div>
 </div>

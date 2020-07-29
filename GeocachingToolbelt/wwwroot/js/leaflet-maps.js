@@ -66,7 +66,7 @@ function addCoordsToMap() {
                 iconSize: [40, 40], 
             });
 
-            var marker = L.marker([latitude, longitude], { icon: myIcon });
+            var marker = L.marker([latitude, longitude], { icon: myIcon, draggable: coords.length == 1, autoPan: true });
 
             if (coord.dataset.title) {
                 if (coord.dataset.gccode) {
@@ -77,6 +77,16 @@ function addCoordsToMap() {
                 marker.bindPopup(html);
             }
 
+            marker.on("dragend", function (e) {
+                var marker = e.target;
+                var position = marker.getLatLng();
+                if ($("div[data-id='_CoordinatePartial']").length) {
+                    $.get("/LeafletHelper/CoordinatePartial", { lat: position.lat, lng: position.lng }, function (data) {
+                        $("div[data-id='_CoordinatePartial']").html(data);
+                    });
+                }
+            });
+
             group.push(marker);
         }
 
@@ -86,7 +96,7 @@ function addCoordsToMap() {
     var markerGroup = new L.featureGroup(group).addTo(layerGroup);
     map.fitBounds(markerGroup.getBounds());
 
-    if (coords.length == 1 && !circle_radius) {
+    if (coords.length == 1 && !parseFloat(coords[0].dataset.radius)) {
         map.setZoom(17);
     }
 }

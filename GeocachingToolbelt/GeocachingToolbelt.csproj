@@ -22,7 +22,6 @@
     <Folder Include="Views\Home\" />
     <Folder Include="Views\Centroid\" />
     <Folder Include="Views\WordValue\" />
-    <Folder Include="Views\JigidiSolver\" />
     <Folder Include="Views\Resistance\" />
     <Folder Include="Views\BogusProjection\" />
     <Folder Include="Views\Gpx\" />
