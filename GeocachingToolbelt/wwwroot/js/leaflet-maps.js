@@ -38,10 +38,12 @@ L.control.layers(baseMaps).addTo(map);
 var layerGroup = L.layerGroup().addTo(map);
 
 function addCoordsToMap() {
-    var coords = document.querySelectorAll("[data-container='coordinates'] coord");
+    var container = document.querySelector("[data-container='coordinates']"),
+        coords = document.querySelectorAll("[data-container='coordinates'] coord");
     layerGroup.clearLayers();
 
     var group = [];
+    var line = [];
     coords.forEach(coord => {
         var latitude = parseFloat(coord.dataset.lat);
         var longitude = parseFloat(coord.dataset.long);
@@ -88,6 +90,9 @@ function addCoordsToMap() {
             });
 
             group.push(marker);
+            if (container.dataset.line == "True") {
+                line.push(marker.getLatLng());
+            }
         }
 
         map.setView([latitude, longitude], 0);
@@ -95,6 +100,8 @@ function addCoordsToMap() {
 
     var markerGroup = new L.featureGroup(group).addTo(layerGroup);
     map.fitBounds(markerGroup.getBounds());
+
+    var polyline = L.polyline(line, { color: 'red' }).addTo(map);
 
     if (coords.length == 1 && !parseFloat(coords[0].dataset.radius)) {
         map.setZoom(17);

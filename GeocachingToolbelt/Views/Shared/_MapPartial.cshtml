@@ -2,7 +2,8 @@
 @{string maps = "leaflet";}
 <div style="width: 100%; height: 480px" id="mapContainer"></div>
 
-<div data-container="coordinates" style="display: none;">
+<div data-container="coordinates" style="display: none;"
+     data-line="@Model.Line">
     @foreach (var coord in Model.Coordinates)
     {
         <coord data-lat="@coord.Latitude" data-long="@coord.Longitude" data-radius="@Model.Radius"></coord>

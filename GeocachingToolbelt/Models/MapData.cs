@@ -9,5 +9,6 @@ namespace GeocachingToolbelt.Models
         public List<Geocache> Geocaches = new List<Geocache>();
         public Coordinate Hightlight;
         public double Radius;
+        public bool Line = false;
     }
 }

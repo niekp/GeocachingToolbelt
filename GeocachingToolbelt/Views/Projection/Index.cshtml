@@ -24,12 +24,12 @@
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="distance">Afstand</label>
-            <input type="number" class="form-control" id="distance" name="distance" placeholder="Afstand" value="@(ViewBag.Distance)">
+            <input type="number" class="form-control" step="any" id="distance" name="distance" placeholder="Afstand" value="@(ViewBag.Distance)">
             <small id="coordHelp" class="form-text text-muted">Aantal meter</small>
         </div>
         <div class="form-group col-md-6">
             <label for="angle">Hoek</label>
-            <input type="number" class="form-control" step=".01" id="angle" name="angle" placeholder="Afstand" value="@(ViewBag.Angle)">
+            <input type="number" class="form-control" step="any" id="angle" name="angle" placeholder="Afstand" value="@(ViewBag.Angle)">
             <small id="coordHelp" class="form-text text-muted">Aantal graden</small>
         </div>
     </div>
@@ -56,7 +56,9 @@
             <p class="card-text">
                 @{
                     var data = new MapData();
+                    data.Coordinates.Add(ViewBag.Coordinate);
                     data.Hightlight = ViewBag.Projected;
+                    data.Line = true;
                 }
                 <partial name="~/Views/Shared/_MapPartial.cshtml" model="data" />
             </p>
