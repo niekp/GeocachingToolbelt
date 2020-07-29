@@ -17,7 +17,7 @@
 
 <form method="post">
     <div class="form-group">
-        <label for="coords">Coordinaten</label>
+        <label for="coords">Coördinaat</label>
         <input type="text" class="form-control" name="coord" id="coords" aria-describedby="coordHelp" value="@(ViewBag.Center is Coordinate ? ViewBag.Center.GetWSG84() : "")" />
         <small id="coordHelp" class="form-text text-muted">WSG84 of decimaal formaat</small>
     </div>
