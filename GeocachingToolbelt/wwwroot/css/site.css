@@ -121,8 +121,9 @@ body {
 }
 
 .internal-tools .card-img-top {
-    height: 7vw;
+    height: 8vw;
 }
+
 h3 {
     font-size: 1.5rem;
 }
@@ -140,4 +141,12 @@ h3 {
 
 [data-trigger='copy'] {
     cursor: pointer;
+}
+
+@media (max-width: 767px) {
+
+    .internal-tools .card-img-top {
+        height: 20vw;
+    }
+
 }
