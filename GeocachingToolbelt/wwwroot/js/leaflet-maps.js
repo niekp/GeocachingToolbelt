@@ -44,7 +44,7 @@ function addCoordsToMap() {
 
     var group = [];
     var line = [];
-    coords.forEach(coord => {
+    coords.forEach(function (coord) {
         var latitude = parseFloat(coord.dataset.lat);
         var longitude = parseFloat(coord.dataset.long);
         var circle_radius = parseFloat(coord.dataset.radius);
