@@ -18,7 +18,7 @@ namespace GeocachingToolbelt.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(string coord)
+        public IActionResult Index(string coord, double meter = 3218.688)
         {
             Coordinate coordinate;
             try
@@ -31,10 +31,11 @@ namespace GeocachingToolbelt.Controllers
                 return View();
             }
 
-            ViewBag.Nord = coordinate.Project(3218.688, 0);
-            ViewBag.East = coordinate.Project(3218.688, 90);
-            ViewBag.South = coordinate.Project(3218.688, 180);
-            ViewBag.West = coordinate.Project(3218.688, 270);
+            ViewBag.Meter = meter;
+            ViewBag.Nord = coordinate.Project(meter, 0);
+            ViewBag.East = coordinate.Project(meter, 90);
+            ViewBag.South = coordinate.Project(meter, 180);
+            ViewBag.West = coordinate.Project(meter, 270);
             ViewBag.Center = coordinate;
 
             return View();

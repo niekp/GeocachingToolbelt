@@ -21,6 +21,11 @@
         <input type="text" class="form-control" name="coord" id="coords" aria-describedby="coordHelp" value="@(ViewBag.Center is Coordinate ? ViewBag.Center.GetWSG84() : "")" />
         <small id="coordHelp" class="form-text text-muted">WSG84 of decimaal formaat</small>
     </div>
+    <div class="form-group">
+        <label for="coords">Afstand</label>
+        <input type="number" step="0.001" class="form-control" name="meter" id="meter" aria-describedby="meterHelp" value="@(ViewBag.Meter ?? "3218.688")" />
+        <small id="meterHelp" class="form-text text-muted">Aantal meter projecteren. De bogus afstand is max 2 mile (3218 meter)</small>
+    </div>
 
     <button type="submit" class="btn btn-primary">Bereken</button>
 </form>
@@ -103,7 +108,7 @@
             @{
                 var data = new MapData();
                 data.Hightlight = ViewBag.Center;
-                data.Radius = 3218.688;
+                data.Radius = ViewBag.Meter ?? 3218.688;
             }
             <partial name="~/Views/Shared/_MapPartial.cshtml" model="data" />
         </p>
